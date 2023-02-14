@@ -55,6 +55,25 @@ class Character extends FlxSprite {
 				playAnim('danceRight');
 
 				barColor = 0xFFA2044B;
+			case 'meatboy':
+				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Up', 24);
+				animation.addByPrefix('singRIGHT', 'Right', 24);
+				animation.addByPrefix('singDOWN', 'Down', 24);
+				animation.addByPrefix('singLEFT', 'Left', 24);
+				
+				addOffset('idle', 250, -80);
+				addOffset('singRIGHT', 235, -80);
+				addOffset('singDOWN', 273, -108);
+				addOffset('singLEFT', 218, -98);
+				addOffset('singUP', 235, -32);
+		
+				playAnim('idle');
+	
+				setGraphicSize(Std.int(width * 0.35));
+		
+				barColor = 0xffff2a2a;
 			case 'dad':
 				frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
 				animation.addByPrefix('idle', 'Dad idle dance', 24);

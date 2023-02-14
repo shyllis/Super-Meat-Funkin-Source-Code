@@ -63,6 +63,8 @@ class PlayState extends MusicBeatState {
 	private var P2vocals:FlxSound;
 	private var SepVocalsNull:Bool = false;
 
+	public var bfOnlyEvent:FlxSprite;
+
 	public static var dad:Character;
 	public static var gf:Character;
 	public static var boyfriend:Boyfriend;
@@ -83,7 +85,6 @@ class PlayState extends MusicBeatState {
 	public static var playerStrums:FlxTypedGroup<FlxSprite> = null;
 	public static var cpuStrums:FlxTypedGroup<FlxSprite> = null;
 
-	private var camZooming:Bool = false;
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
@@ -150,7 +151,7 @@ class PlayState extends MusicBeatState {
 
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
-	public var hideGf:Bool = false; // write hideGf = true is stage to remove gf !
+	public var hideGf:Bool = false;
 	
 	override public function create() {
 		instance = this;
@@ -175,14 +176,7 @@ class PlayState extends MusicBeatState {
 		misses = 0;
 
 		#if windows
-		switch (storyDifficulty) {
-			case 0:
-				storyDifficultyText = "Easy";
-			case 1:
-				storyDifficultyText = "Normal";
-			case 2:
-				storyDifficultyText = "Hard";
-		}
+		storyDifficultyText = "Hard";
 
 		iconRPC = SONG.player2;
 
@@ -250,6 +244,8 @@ class PlayState extends MusicBeatState {
 					stageCurtains.active = false;
 
 					add(stageCurtains);
+
+					hideGf = true;
 				}
 		}
 
@@ -283,6 +279,12 @@ class PlayState extends MusicBeatState {
 		if (!hideGf)
 			add(gf);
 		add(dad);
+		
+
+		bfOnlyEvent = new FlxSprite(0, 0).makeGraphic(3000, 3000, FlxColor.BLACK);
+		bfOnlyEvent.alpha = 0.000001;
+		add(bfOnlyEvent);
+
 		add(boyfriend);
 
 		Conductor.songPosition = -5000;
@@ -903,7 +905,7 @@ class PlayState extends MusicBeatState {
 		perfectMode = false;
 		#end
 
-		info.text = '${SONG.song}' + ' - ' + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy");
+		info.text = '${SONG.song}' + ' - ' + "Hard";
 		if (FlxG.save.data.timer) {
 			var curTime:Float = Conductor.songPosition;
 			if (curTime < 0)
@@ -1024,10 +1026,8 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (camZooming) {
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
-		}
+		FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
+		camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
@@ -1325,14 +1325,6 @@ class PlayState extends MusicBeatState {
 				}
 				FlxG.save.flush();
 			} else {
-				var difficulty:String = "";
-
-				if (storyDifficulty == 0)
-					difficulty = '-easy';
-
-				if (storyDifficulty == 2)
-					difficulty = '-hard';
-
 				var nextSongLowercase = StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase();
 				switch (nextSongLowercase) {
 					case 'dad-battle':
@@ -1349,7 +1341,7 @@ class PlayState extends MusicBeatState {
 				FlxTransitionableState.skipNextTransOut = true;
 				prevCamFollow = camFollow;
 
-				PlayState.SONG = Song.loadFromJson(nextSongLowercase + difficulty, PlayState.storyPlaylist[0]);
+				PlayState.SONG = Song.loadFromJson(nextSongLowercase, PlayState.storyPlaylist[0]);
 				FlxG.sound.music.stop();
 
 				FlxG.switchState(new PlayState());
@@ -1768,6 +1760,50 @@ class PlayState extends MusicBeatState {
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 			resyncVocals();
 
+		if (curSong.toLowerCase() == "meat") {
+			if (curStep == 764) {
+				FlxTween.tween(bfOnlyEvent, {alpha: 1}, 1, {ease: FlxEase.quadOut});
+
+				if (!FlxG.save.data.middleScroll) {
+					playerStrums.forEach(function(spr:FlxSprite) {
+						FlxTween.tween(playerStrums.members[0], {x: 415}, 1, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[1], {x: 527}, 1.2, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[2], {x: 638}, 1.4, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[3], {x: 750}, 1.6, {ease: FlxEase.cubeInOut});
+					});
+
+					cpuStrums.forEach(function(spr:FlxSprite) {
+						FlxTween.tween(spr, {alpha: 0}, 1, {ease: FlxEase.sineOut});
+					});
+				}
+				
+				defaultCamZoom = 1.2;
+			}
+	
+			if (curStep == 896) {
+				FlxTween.tween(bfOnlyEvent, {alpha: 0}, 10, {ease: FlxEase.quartInOut});
+				
+				defaultCamZoom = 1;
+			}
+
+			if (curStep == 1020) {
+				if (!FlxG.save.data.middleScroll) {
+					playerStrums.forEach(function(spr:FlxSprite) {
+						FlxTween.tween(playerStrums.members[0], {x: 740}, 0.8, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[1], {x: 852}, 0.7, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[2], {x: 963}, 0.6, {ease: FlxEase.cubeInOut});
+						FlxTween.tween(playerStrums.members[3], {x: 1075}, 0.5, {ease: FlxEase.cubeInOut});
+					});
+
+					cpuStrums.forEach(function(spr:FlxSprite) {
+						FlxTween.tween(spr, {alpha: 1}, 0.6, {ease: FlxEase.sineIn});
+					});
+				}
+
+				defaultCamZoom = 0.9;
+			}
+		}
+
 		#if windows
 		songLength = FlxG.sound.music.length;
 		DiscordClient.changePresence(detailsText
@@ -1797,13 +1833,18 @@ class PlayState extends MusicBeatState {
 		if (SONG.notes[Math.floor(curStep / 16)] != null) {
 			if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf')
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && curBeat % 2 == 1 && dad.curCharacter != 'gf')
 				dad.dance();
 			else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
 				dad.dance();
 		}
 
-		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0) {
+		if (curSong.toLowerCase() == 'meat' && curStep >= 256 && curStep <= 768 && curStep >= 1024 && curStep <= 1548 && FlxG.camera.zoom < 1.35) {
+			FlxG.camera.zoom += 0.015;
+			camHUD.zoom += 0.03;
+		}
+			
+		if (FlxG.camera.zoom < 1.35 && curBeat % 4 == 0) {
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 		}
@@ -1817,7 +1858,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
+		if (!boyfriend.animation.curAnim.name.startsWith("sing") && curBeat % 2 == 1 )
 			boyfriend.playAnim('idle');
 
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo') {

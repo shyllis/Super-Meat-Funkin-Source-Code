@@ -61,8 +61,10 @@ class StoryMenuState extends MusicBeatState {
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		if (FlxG.sound.music != null) {
-			if (!FlxG.sound.music.playing)
+			if (!FlxG.sound.music.playing) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.music.time = 3000;
+			}
 		}
 
 		persistentUpdate = persistentDraw = true;
@@ -224,18 +226,9 @@ class StoryMenuState extends MusicBeatState {
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 
-			var diffic = "";
-
-			switch (curDifficulty) {
-				case 0:
-					diffic = '-easy';
-				case 2:
-					diffic = '-hard';
-			}
-
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase() + diffic,
+			PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase(),
 				StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase());
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;

@@ -5,7 +5,7 @@ import lime.utils.Assets;
 using StringTools;
 
 class CoolUtil {
-	public static var difficultyArray:Array<String> = ['Easy', "Normal", "Hard"];
+	public static var difficultyArray:Array<String> = ["Hard"];
 
 	public static function difficultyString():String {
 		return difficultyArray[PlayState.storyDifficulty];

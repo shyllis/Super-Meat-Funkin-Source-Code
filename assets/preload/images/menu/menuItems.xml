@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="menuItems.png">
+	<!-- Created with Adobe Animate version 22.0.8.217 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="freeplay образец 10000" x="0" y="0" width="271" height="28"/>
+	<SubTexture name="settings образец 10000" x="0" y="28" width="264" height="28"/>
+	<SubTexture name="story_mode образец 10000" x="0" y="56" width="314" height="30"/>
+</TextureAtlas>
