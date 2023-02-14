@@ -22,13 +22,11 @@ class FreeplayState extends MusicBeatState {
 
 	var scoreText:FlxText;
 	var diffText:FlxText;
-	var scoreBG:FlxSprite;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
 	var bg:FlxSprite;
-	var intendedColor:Int;
-	var colorTween:FlxTween;
+	var barThing:FlxSprite;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -43,7 +41,7 @@ class FreeplayState extends MusicBeatState {
 
 		for (i in 0...initSonglist.length) {
 			var data:Array<String> = initSonglist[i].split(':');
-			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1], Std.parseInt(data[3])));
+			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
 		}
 
 		#if windows
@@ -61,7 +59,7 @@ class FreeplayState extends MusicBeatState {
 		isDebug = true;
 		#end
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		bg = new FlxSprite().loadGraphic(Paths.image('daMeatBG'));
 		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -78,14 +76,15 @@ class FreeplayState extends MusicBeatState {
 			iconArray.push(icon);
 			add(icon);
 		}
+		
+		barThing = new FlxSprite().loadGraphic(Paths.image('freeplay/barThingy'));
+		barThing.updateHitbox();
+		barThing.screenCenter();
+		add(barThing);
 
-		scoreText = new FlxText(-100, 5, 0, "", 32);
+		scoreText = new FlxText(0, 16, 0, "PERSONAL BEST: 0", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
-
-		scoreBG = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
-		scoreBG.screenCenter(X);
-		scoreBG.alpha = 0.6;
-		add(scoreBG);
+		scoreText.screenCenter(X);
 		add(scoreText);
 
 		diffText = new FlxText(0, scoreText.y + 36, 0, "HARD", 24);
@@ -102,17 +101,17 @@ class FreeplayState extends MusicBeatState {
 		super.create();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String, bgcolor:Int) {
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, bgcolor));
+	public function addSong(songName:String, weekNum:Int, songCharacter:String) {
+		songs.push(new SongMetadata(songName, weekNum, songCharacter));
 	}
 
-	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>, bgcolor:Int) {
+	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>) {
 		if (songCharacters == null)
 			songCharacters = ['dad'];
 
 		var num:Int = 0;
 		for (song in songs) {
-			addSong(song, weekNum, songCharacters[num], bgcolor);
+			addSong(song, weekNum, songCharacters[num]);
 
 			if (songCharacters.length != 1)
 				num++;
@@ -122,7 +121,6 @@ class FreeplayState extends MusicBeatState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		scoreBG.screenCenter(X);
 		scoreText.screenCenter(X);
 		diffText.screenCenter(X);
 
@@ -174,7 +172,6 @@ class FreeplayState extends MusicBeatState {
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 			PlayState.storyWeek = songs[curSelected].week;
-			trace('CUR WEEK' + PlayState.storyWeek);
 			FlxG.switchState(new PlayState());
 		}
 	}
@@ -188,19 +185,6 @@ class FreeplayState extends MusicBeatState {
 			curSelected = songs.length - 1;
 		if (curSelected >= songs.length)
 			curSelected = 0;
-
-		var newColor:Int = songs[curSelected].bgcolor;
-		if (newColor != intendedColor) {
-			if (colorTween != null) {
-				colorTween.cancel();
-			}
-			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
-					colorTween = null;
-				}
-			});
-		}
 
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		switch (songHighscore) {
@@ -237,12 +221,10 @@ class SongMetadata {
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
-	public var bgcolor:Int;
 
-	public function new(song:String, week:Int, songCharacter:String, bgcolor:Int) {
+	public function new(song:String, week:Int, songCharacter:String) {
 		this.songName = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
-		this.bgcolor = bgcolor;
 	}
 }

@@ -69,6 +69,10 @@ class OptionsMenu extends MusicBeatState {
 
 	public var background:FlxSprite;
 
+	var menuBG:FlxSprite;
+	var barThing:FlxSprite;
+	var logo:FlxSprite;
+
 	public var selectedCat:OptionCata;
 
 	public var selectedOption:Option;
@@ -104,11 +108,23 @@ class OptionsMenu extends MusicBeatState {
 
 		persistentUpdate = true;
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image("daMeatBG"));
+		menuBG = new FlxSprite().loadGraphic(Paths.image("daMeatBG"));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = true;
 		add(menuBG);
+		
+		barThing = new FlxSprite().loadGraphic(Paths.image('barThingySettings'));
+		barThing.updateHitbox();
+		barThing.screenCenter();
+		add(barThing);
+
+		logo = new FlxSprite(235).loadGraphic(Paths.image('logo'));
+		logo.updateHitbox();
+		logo.screenCenter();
+		logo.alpha = 0.5;
+		logo.antialiasing = true;
+		add(logo);
 
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
@@ -177,7 +193,7 @@ class OptionsMenu extends MusicBeatState {
 			add(cat.titleObject);
 		}
 
-		descText = new FlxText(62, 648);
+		descText = new FlxText(62, 640);
 		descText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.borderSize = 2;
 

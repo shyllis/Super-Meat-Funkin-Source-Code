@@ -87,7 +87,7 @@ class TitleState extends MusicBeatState {
 		bg.screenCenter();
 		add(bg);
 
-		logo = new FlxSprite(235, 200).loadGraphic(Paths.image('logo'));
+		logo = new FlxSprite(347, 160).loadGraphic(Paths.image('logo'));
 		logo.setGraphicSize(Std.int(logo.width * 0.7));
 		logo.antialiasing = true;
 		logo.updateHitbox();

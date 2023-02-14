@@ -1316,6 +1316,9 @@ class PlayState extends MusicBeatState {
 				transIn = FlxTransitionableState.defaultTransIn;
 				transOut = FlxTransitionableState.defaultTransOut;
 
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+				
 				FlxG.switchState(new StoryMenuState());
 
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
@@ -1347,6 +1350,9 @@ class PlayState extends MusicBeatState {
 				FlxG.switchState(new PlayState());
 			}
 		} else {
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+
 			FlxG.switchState(new FreeplayState());
 		}
 	}

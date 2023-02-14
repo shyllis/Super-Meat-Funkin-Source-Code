@@ -63,7 +63,7 @@ class MainMenuState extends MusicBeatState {
 		barThing.screenCenter();
 		add(barThing);
 
-		logo = new FlxSprite(235).loadGraphic(Paths.image('logo'));
+		logo = new FlxSprite(347).loadGraphic(Paths.image('logo'));
 		logo.setGraphicSize(Std.int(logo.width * 0.7));
 		logo.antialiasing = true;
 		logo.updateHitbox();
