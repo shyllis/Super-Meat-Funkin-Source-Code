@@ -1,4 +1,6 @@
-# Super Night Funkin'
+-![SMF logo](assets/preload/images/logo.png)
+
+# Super Meat Funkin'
 
 ## Credits
 ### Friday Night Funkin'
