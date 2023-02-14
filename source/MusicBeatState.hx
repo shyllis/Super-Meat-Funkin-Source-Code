@@ -8,6 +8,7 @@ import openfl.Lib;
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.addons.ui.FlxUIState;
+import flixel.FlxSubState;
 
 class MusicBeatState extends FlxUIState {
 	private var lastBeat:Float = 0;
@@ -23,6 +24,8 @@ class MusicBeatState extends FlxUIState {
 	override function create() {
 		if (transIn != null)
 			trace('reg ' + transIn.region);
+
+		transition('OUT');
 
 		super.create();
 	}
@@ -61,6 +64,10 @@ class MusicBeatState extends FlxUIState {
 		curBeat = Math.floor(curStep / 4);
 	}
 
+	override function openSubState(SubState:FlxSubState) {
+		super.openSubState(SubState);
+	}
+
 	public static var currentColor = 0;
 
 	private function updateCurStep():Void {
@@ -92,5 +99,13 @@ class MusicBeatState extends FlxUIState {
 		#else
 		FlxG.openURL(schmancy);
 		#end
+	}
+
+	public function transition(type:String = 'IN')
+	{
+		if (type == 'IN')
+			openSubState(new TransSprite());
+		else if (type == 'OUT')
+			FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
 	}
 }

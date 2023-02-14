@@ -103,6 +103,7 @@ class FreeplayState extends MusicBeatState {
 			PlayState.storyDifficulty = 0;
 			PlayState.storyWeek = 0;
 			FlxG.switchState(new PlayState());
+			transition();
 		}
 	}
 

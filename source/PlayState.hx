@@ -9,7 +9,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.input.keyboard.FlxKey;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -891,7 +890,10 @@ class PlayState extends MusicBeatState {
 		video.finishCallback = function() {
 			if (atEndOfSong) {
 				if (storyPlaylist.length <= 0)
+				{
+					transition();
 					FlxG.switchState(new StoryMenuState());
+				}
 				else {
 					SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
 					FlxG.switchState(new PlayState());
@@ -1052,7 +1054,7 @@ class PlayState extends MusicBeatState {
 			persistentUpdate = false;
 			persistentDraw = false;
 			paused = true;
-
+			
 			if (SepVocalsNull)
 				vocals.stop();
 			else
@@ -1322,12 +1324,10 @@ class PlayState extends MusicBeatState {
 			storyPlaylist.remove(storyPlaylist[0]);
 
 			if (storyPlaylist.length <= 0) {
-				transIn = FlxTransitionableState.defaultTransIn;
-				transOut = FlxTransitionableState.defaultTransOut;
-
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.stop();
 				
+				transition();
 				FlxG.switchState(new StoryMenuState());
 
 				if (SONG.validScore) {
@@ -1338,9 +1338,6 @@ class PlayState extends MusicBeatState {
 				var nextSongLowercase = StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase();
 
 				var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
 				prevCamFollow = camFollow;
 
 				PlayState.SONG = Song.loadFromJson(nextSongLowercase, PlayState.storyPlaylist[0]);
@@ -1351,7 +1348,7 @@ class PlayState extends MusicBeatState {
 		} else {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
-
+			transition();
 			FlxG.switchState(new FreeplayState());
 		}
 	}

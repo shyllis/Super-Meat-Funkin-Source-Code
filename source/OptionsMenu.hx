@@ -1,7 +1,5 @@
 package;
 
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.FlxSubState;
 import flixel.input.gamepad.FlxGamepad;
 import Options;
 import flixel.FlxG;
@@ -102,9 +100,6 @@ class OptionsMenu extends MusicBeatState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = true;
 
@@ -362,6 +357,7 @@ class OptionsMenu extends MusicBeatState {
 				}
 
 				if (escape) {
+					transition();
 					FlxG.switchState(new MainMenuState());
 				}
 			} else {

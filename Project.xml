@@ -39,6 +39,7 @@
 	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
 
 	<assets path="assets/fonts" embed='true'/>
+	<assets path="transition" embed='true'/>
 
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />

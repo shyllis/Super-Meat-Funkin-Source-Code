@@ -5,9 +5,6 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.effects.FlxFlicker;
 import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
 import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
@@ -58,17 +55,6 @@ class TitleState extends MusicBeatState {
 
 	function startIntro() {
 		if (!initialized) {
-			var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
-
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -151,7 +137,7 @@ class TitleState extends MusicBeatState {
 		}
 
 		if (pressedEnter && !transitioning && skippedIntro) {
-			pressStart.animation.play('press');
+			transition();
 			FlxFlicker.flicker(pressStart, 1, 0.06, false, false, function(flick:FlxFlicker) { FlxG.switchState(new MainMenuState()); });
 
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);

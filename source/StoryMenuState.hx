@@ -3,7 +3,6 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
@@ -40,9 +39,6 @@ class StoryMenuState extends MusicBeatState {
 		#if windows
 		DiscordClient.changePresence("Story Mode Menu", null);
 		#end
-
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
 
 		if (!FlxG.sound.music.playing) {
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -107,6 +103,7 @@ class StoryMenuState extends MusicBeatState {
 			stopspamming = true;
 		}
 
+		transition();
 		selectedWeek = true;
 		PlayState.storyPlaylist = weekData[0];
 		PlayState.isStoryMode = true;
