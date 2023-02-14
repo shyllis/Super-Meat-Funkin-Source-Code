@@ -74,23 +74,6 @@ class Character extends FlxSprite {
 				setGraphicSize(Std.int(width * 0.35));
 		
 				barColor = 0xffff2a2a;
-			case 'dad':
-				frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
-				animation.addByPrefix('idle', 'Dad idle dance', 24);
-				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
-				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
-				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
-				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
-
-				addOffset('idle');
-				addOffset("singUP", -6, 50);
-				addOffset("singRIGHT", 0, 27);
-				addOffset("singLEFT", -10, 10);
-				addOffset("singDOWN", 0, -30);
-
-				playAnim('idle');
-
-				barColor = 0xFFaf66ce;
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 
@@ -140,20 +123,6 @@ class Character extends FlxSprite {
 	}
 
 	override function update(elapsed:Float) {
-		if (!curCharacter.startsWith('bf')) {
-			if (animation.curAnim.name.startsWith('sing')) {
-				holdTimer += elapsed;
-			}
-
-			var dadVar:Float = 4;
-
-			if (curCharacter == 'dad')
-				dadVar = 6.1;
-			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
-				dance();
-				holdTimer = 0;
-			}
-		}
 		super.update(elapsed);
 	}
 

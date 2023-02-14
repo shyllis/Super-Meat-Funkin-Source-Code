@@ -271,11 +271,19 @@ class PlayState extends MusicBeatState {
 					camPos.x += 600;
 					tweenCamIn();
 				}
-			case 'dad':
-				camPos.x += 400;
+			case 'meatboy':
+				camPos.x -= 200;
+				camPos.y += 100;
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
+
+		switch (curStage) {
+			case 'stage':
+				dad.x -= 70;
+				dad.y += 190;
+		}
+
 		if (!hideGf)
 			add(gf);
 		add(dad);
@@ -1016,12 +1024,18 @@ class PlayState extends MusicBeatState {
 			if (camFollow.x != dad.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection) {
 				var offsetX = 0;
 				var offsetY = 0;
+				switch (SONG.player2) {
+					case 'meatboy':
+						offsetX = -200;
+						offsetY = 100;
+				}
+
 				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
 			}
 
 			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100) {
-				var offsetX = 0;
-				var offsetY = 0;
+				var offsetX = -0;
+				var offsetY = -0;
 				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
 			}
 		}
@@ -1296,10 +1310,7 @@ class PlayState extends MusicBeatState {
 				vocals.volume = 0;
 		if (SONG.validScore) {
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
-			switch (songHighscore) {
-				case 'Dad-Battle':
-					songHighscore = 'Dadbattle';
-			}
+			
 			#if !switch
 			Highscore.saveScore(songHighscore, Math.round(songScore), storyDifficulty);
 			#end
@@ -1311,8 +1322,6 @@ class PlayState extends MusicBeatState {
 			storyPlaylist.remove(storyPlaylist[0]);
 
 			if (storyPlaylist.length <= 0) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-
 				transIn = FlxTransitionableState.defaultTransIn;
 				transOut = FlxTransitionableState.defaultTransOut;
 
@@ -1321,24 +1330,14 @@ class PlayState extends MusicBeatState {
 				
 				FlxG.switchState(new StoryMenuState());
 
-				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
-
 				if (SONG.validScore) {
 					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 				}
 				FlxG.save.flush();
 			} else {
 				var nextSongLowercase = StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase();
-				switch (nextSongLowercase) {
-					case 'dad-battle':
-						nextSongLowercase = 'dadbattle';
-				}
 
 				var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-				switch (songLowercase) {
-					case 'dad-battle':
-						songLowercase = 'dadbattle';
-				}
 
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
@@ -1787,7 +1786,7 @@ class PlayState extends MusicBeatState {
 			}
 	
 			if (curStep == 896) {
-				FlxTween.tween(bfOnlyEvent, {alpha: 0}, 10, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bfOnlyEvent, {alpha: 0.25}, 8, {ease: FlxEase.quartInOut});
 				
 				defaultCamZoom = 1;
 			}
@@ -1805,6 +1804,8 @@ class PlayState extends MusicBeatState {
 						FlxTween.tween(spr, {alpha: 1}, 0.6, {ease: FlxEase.sineIn});
 					});
 				}
+
+				FlxTween.tween(bfOnlyEvent, {alpha: 0}, 1, {ease: FlxEase.quartInOut});
 
 				defaultCamZoom = 0.9;
 			}
@@ -1866,11 +1867,6 @@ class PlayState extends MusicBeatState {
 
 		if (!boyfriend.animation.curAnim.name.startsWith("sing") && curBeat % 2 == 1 )
 			boyfriend.playAnim('idle');
-
-		if (curBeat % 8 == 7 && curSong == 'Bopeebo') {
-			boyfriend.playAnim('hey', true);
-			gf.playAnim('cheer', true);
-		}
 
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48) {
 			boyfriend.playAnim('hey', true);

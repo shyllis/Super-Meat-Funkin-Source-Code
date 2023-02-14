@@ -148,37 +148,25 @@ class Paths {
 
 	inline static public function voices(song:String) {
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle':
-				songLowercase = 'dadbattle';
-		}
+		
 		return 'songs:assets/songs/${songLowercase}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function P1voice(song:String) {
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle':
-				songLowercase = 'dadbattle';
-		}
+		
 		return 'songs:assets/songs/${songLowercase}/playerVoice.$SOUND_EXT';
 	}
 
 	inline static public function P2voice(song:String) {
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle':
-				songLowercase = 'dadbattle';
-		}
+		
 		return 'songs:assets/songs/${songLowercase}/enemyVoice.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String) {
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle':
-				songLowercase = 'dadbattle';
-		}
+		
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
 
