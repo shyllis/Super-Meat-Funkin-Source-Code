@@ -75,44 +75,50 @@ class Character extends FlxSprite {
 		
 				barColor = 0xffff2a2a;
 			case 'bf':
-				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
+				frames = Paths.getSparrowAtlas('characters/meatbf', 'shared');
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Up', 24);
+				animation.addByPrefix('singRIGHT', 'Right', 24);
+				animation.addByPrefix('singDOWN', 'Down', 24);
+				animation.addByPrefix('singLEFT', 'Left', 24);
+				animation.addByPrefix('singUPmiss', 'MissUp', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'MissLeft', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'MissRight', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'MissDown', 24, false);
+				animation.addByPrefix('scared', 'WHAT', 24);
 
-				animation.addByPrefix('idle', 'BF idle dance', 24, false);
-				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
-				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-				animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
-				animation.addByPrefix('hey', 'BF HEY', 24, false);
-
-				animation.addByPrefix('firstDeath', "BF dies", 24, false);
-				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
-
-				animation.addByPrefix('scared', 'BF idle shaking', 24);
-
-				addOffset('idle', -5);
-				addOffset("singUP", -29, 27);
-				addOffset("singRIGHT", -38, -7);
-				addOffset("singLEFT", 12, -6);
-				addOffset("singDOWN", -10, -50);
-				addOffset("singUPmiss", -29, 27);
-				addOffset("singRIGHTmiss", -30, 21);
-				addOffset("singLEFTmiss", 12, 24);
-				addOffset("singDOWNmiss", -11, -19);
-				addOffset("hey", 7, 4);
-				addOffset('firstDeath', 37, 11);
-				addOffset('deathLoop', 37, 5);
-				addOffset('deathConfirm', 37, 69);
-				addOffset('scared', -4);
+				addOffset('scared', 2, 6);
+				addOffset('singDOWN', 19, -11);
+				addOffset('singRIGHTmiss', 10, 2);
+				addOffset('singLEFTmiss', 18, -12);
+				addOffset('singUP', 5, 44);
+				addOffset('idle', -5, -10);
+				addOffset('singDOWNmiss', -8, -17);
+				addOffset('singRIGHT', 42, -5);
+				addOffset('singUPmiss', 11, 77);
+				addOffset('singLEFT', 33, -8);
 
 				playAnim('idle');
+				
+				setGraphicSize(Std.int(width * 0.4));
 
 				flipX = true;
 
+				barColor = 0xFF31b0d1;
+			case 'bf-dead':
+				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
+				animation.addByPrefix('firstDeath', "BF dies", 24, false);
+				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+	
+				addOffset('firstDeath', 37, 11);
+				addOffset('deathLoop', 37, 5);
+				addOffset('deathConfirm', 37, 69);
+	
+				playAnim('firstDeath');
+	
+				flipX = true;
+	
 				barColor = 0xFF31b0d1;
 		}
 

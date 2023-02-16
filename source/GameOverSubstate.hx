@@ -15,7 +15,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 		var daBf:String = '';
 		switch (PlayState.SONG.player1) {
 			default:
-				daBf = 'bf';
+				daBf = 'bf-dead';
 		}
 
 		super();
