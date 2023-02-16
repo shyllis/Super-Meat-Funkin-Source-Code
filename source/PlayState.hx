@@ -282,7 +282,7 @@ class PlayState extends MusicBeatState {
 				dad.x -= 70;
 				dad.y += 190;
 				boyfriend.x -= 150;
-				boyfriend.y -= 85;
+				boyfriend.y -= 90;
 		}
 
 		if (!hideGf)
