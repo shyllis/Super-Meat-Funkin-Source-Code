@@ -271,7 +271,7 @@ class PlayState extends MusicBeatState {
 					tweenCamIn();
 				}
 			case 'meatboy':
-				camPos.x -= 200;
+				camPos.x -= 220;
 				camPos.y += 100;
 		}
 
@@ -282,7 +282,7 @@ class PlayState extends MusicBeatState {
 				dad.x -= 70;
 				dad.y += 190;
 				boyfriend.x -= 150;
-				boyfriend.y -= 90;
+				boyfriend.y -= 110;
 		}
 
 		if (!hideGf)
@@ -1030,7 +1030,7 @@ class PlayState extends MusicBeatState {
 				var offsetY = 0;
 				switch (SONG.player2) {
 					case 'meatboy':
-						offsetX = -200;
+						offsetX = -220;
 						offsetY = 100;
 				}
 
