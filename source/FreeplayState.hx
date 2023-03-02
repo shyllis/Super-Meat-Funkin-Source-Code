@@ -98,12 +98,12 @@ class FreeplayState extends MusicBeatState {
 		if (controls.ACCEPT) {
 			var songLowercase:String = songName.toLowerCase();
 
+			transition();
 			PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = 0;
 			PlayState.storyWeek = 0;
-			FlxG.switchState(new PlayState());
-			transition();
+			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
 		}
 	}
 
