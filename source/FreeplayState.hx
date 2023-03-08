@@ -7,6 +7,7 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 #if windows
 import Discord.DiscordClient;
 #end

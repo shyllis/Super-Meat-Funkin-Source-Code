@@ -1351,7 +1351,7 @@ class PlayState extends MusicBeatState {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 			transition();
-			FlxG.switchState(new FreeplayState());
+			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new FreeplayState()); });
 		}
 	}
 
