@@ -129,8 +129,6 @@ class PlayState extends MusicBeatState {
 
 	private var camGame:FlxCamera;
 
-	var dialog:Array<String> = [];
-
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
 
@@ -315,22 +313,20 @@ class PlayState extends MusicBeatState {
 		Conductor.songPosition = -5000;
 
 		if (FlxG.save.data.bgNotesAlpha != 0) {
-			notesBgDad = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-			notesBgDad.cameras = [camHUD];
-			notesBgDad.alpha = FlxG.save.data.bgNotesAlpha;
-			notesBgDad.screenCenter(Y);
+			notesBgBoyfriend = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+			notesBgBoyfriend.cameras = [camHUD];
+			notesBgBoyfriend.alpha = FlxG.save.data.bgNotesAlpha;
+			notesBgBoyfriend.screenCenter(Y);
 			if (FlxG.save.data.middleScroll)
-				notesBgDad.x = 400;
-
-			add(notesBgDad);
+				notesBgBoyfriend.x = 400;
+			add(notesBgBoyfriend);
 
 			if (!FlxG.save.data.middleScroll) {
-				notesBgBoyfriend = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-				notesBgBoyfriend.cameras = [camHUD];
-				notesBgBoyfriend.alpha = FlxG.save.data.bgNotesAlpha;
-				notesBgBoyfriend.screenCenter(Y);
-
-				add(notesBgBoyfriend);
+				notesBgDad = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+				notesBgDad.cameras = [camHUD];
+				notesBgDad.alpha = FlxG.save.data.bgNotesAlpha;
+				notesBgDad.screenCenter(Y);
+				add(notesBgDad);
 			}
 		}
 
@@ -831,6 +827,47 @@ class PlayState extends MusicBeatState {
 					FlxTween.tween(notesBgBoyfriend, {x: 720}, 1.3, {ease: FlxEase.sineOut});
 					var daAlpha:Float = FlxG.save.data.bgNotesAlpha;
 					FlxTween.tween(notesBgDad, {alpha: daAlpha}, 1, {ease: FlxEase.sineOut});
+				}
+			}
+		}
+	}
+	
+	function middleScrollEventDad(appear:Bool) {
+		if (appear) {
+			if (!FlxG.save.data.middleScroll) {
+				cpuStrums.forEach(function(spr:FlxSprite) {
+					FlxTween.tween(cpuStrums.members[0], {x: 420}, 1, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[1], {x: 532}, 1.2, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[2], {x: 643}, 1.4, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[3], {x: 755}, 1.6, {ease: FlxEase.cubeInOut});
+				});
+
+				playerStrums.forEach(function(spr:FlxSprite) {
+					FlxTween.tween(spr, {alpha: 0}, 1, {ease: FlxEase.sineOut});
+				});
+				
+				if (FlxG.save.data.bgNotesAlpha != 0) {
+					FlxTween.tween(notesBgDad, {x: 400}, 1.3, {ease: FlxEase.sineOut});
+					FlxTween.tween(notesBgBoyfriend, {alpha: 0}, 1, {ease: FlxEase.sineOut});
+				}
+			}
+		} else {
+			if (!FlxG.save.data.middleScroll) {
+				cpuStrums.forEach(function(spr:FlxSprite) {
+					FlxTween.tween(cpuStrums.members[0], {x: 150}, 0.8, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[1], {x: 262}, 0.7, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[2], {x: 374}, 0.6, {ease: FlxEase.cubeInOut});
+					FlxTween.tween(cpuStrums.members[3], {x: 485}, 0.5, {ease: FlxEase.cubeInOut});
+				});
+	
+				playerStrums.forEach(function(spr:FlxSprite) {
+					FlxTween.tween(spr, {alpha: 1}, 0.6, {ease: FlxEase.sineIn});
+				});
+				
+				if (FlxG.save.data.bgNotesAlpha != 0) {
+					FlxTween.tween(notesBgDad, {x: 80}, 1.3, {ease: FlxEase.sineOut});
+					var daAlpha:Float = FlxG.save.data.bgNotesAlpha;
+					FlxTween.tween(notesBgBoyfriend, {alpha: daAlpha}, 1, {ease: FlxEase.sineOut});
 				}
 			}
 		}
@@ -1425,6 +1462,7 @@ class PlayState extends MusicBeatState {
 				totalNotesHit += 1;
 				sicks++;
 		}
+
 		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
 			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 			noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
@@ -1502,8 +1540,7 @@ class PlayState extends MusicBeatState {
 				FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 					onComplete: function(tween:FlxTween) {
 						numScore.destroy();
-					},
-					startDelay: Conductor.crochet * 0.002
+					}, startDelay: Conductor.crochet * 0.002
 				});
 
 				daLoop++;
@@ -1514,8 +1551,7 @@ class PlayState extends MusicBeatState {
 					coolText.destroy();
 					comboSpr.destroy();
 					rating.destroy();
-				},
-				startDelay: Conductor.crochet * 0.001
+				}, startDelay: Conductor.crochet * 0.001
 			});
 
 			curSection += 1;
