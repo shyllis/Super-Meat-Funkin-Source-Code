@@ -137,7 +137,7 @@ class TitleState extends MusicBeatState {
 		}
 
 		if (pressedEnter && !transitioning && skippedIntro) {
-			transition();
+			transition('IN');
 			FlxFlicker.flicker(pressStart, 1, 0.06, false, false, function(flick:FlxFlicker) { FlxG.switchState(new MainMenuState()); });
 
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);

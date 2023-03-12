@@ -40,6 +40,8 @@ class MainMenuState extends MusicBeatState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		transition('OUT');
 
 		#if windows
 		DiscordClient.changePresence("Main Menu", null);
@@ -107,7 +109,7 @@ class MainMenuState extends MusicBeatState {
 				changeItem(1);
 
 			if (controls.ACCEPT) {
-				transition();
+				transition('IN');
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
@@ -133,7 +135,7 @@ class MainMenuState extends MusicBeatState {
 			case 'freeplay':
 				FlxG.switchState(new FreeplayState());
 			case 'settings':
-				FlxG.switchState(new OptionsMenu());
+				FlxG.switchState(new OptionsState());
 		}
 	}
 

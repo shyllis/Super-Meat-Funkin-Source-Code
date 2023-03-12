@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.effects.FlxFlicker;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
@@ -27,11 +28,15 @@ class FreeplayState extends MusicBeatState {
 	var songOneBanner:FlxSprite;
 	var songTwoBanner:FlxSprite;
 
+	var stopspamming:Bool = false;
+
 	var balls:Bool = false;
 
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		transition('OUT');
 
 		#if windows
 		DiscordClient.changePresence("Freeplay Menu", null);
@@ -90,21 +95,35 @@ class FreeplayState extends MusicBeatState {
 
 		scoreText.text = "PERSONAL BEST:" + lerpScore;
 
-		if (controls.LEFT_P || controls.RIGHT_P)
-			changeSelection();
+		if (!stopspamming) {
+			if (controls.LEFT_P || controls.RIGHT_P)
+				changeSelection();
+	
+			if (controls.BACK) {
+				stopspamming = true;
 
-		if (controls.BACK)
-			FlxG.switchState(new MainMenuState());
-
-		if (controls.ACCEPT) {
-			var songLowercase:String = songName.toLowerCase();
-
-			transition();
-			PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = 0;
-			PlayState.storyWeek = 0;
-			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
+				transition('IN');
+				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new MainMenuState()); });
+			}
+	
+			if (controls.ACCEPT) {
+				stopspamming = true;
+	
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				if (balls)
+					FlxFlicker.flicker(songOneBanner, 1, 0.06, false, false);
+				else
+					FlxFlicker.flicker(songTwoBanner, 1, 0.06, false, false);
+	
+				var songLowercase:String = songName.toLowerCase();
+	
+				transition('GAMEIN');
+				PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 0;
+				PlayState.storyWeek = 0;
+				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
+			}
 		}
 	}
 

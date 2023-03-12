@@ -9,6 +9,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
@@ -97,11 +98,20 @@ class PauseSubState extends MusicBeatSubstate {
 				case "Resume":
 					close();
 				case "Restart Song":
-					FlxG.resetState();
+					transition('GAMEIN');
+					new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.resetState(); });
 				case "Exit to menu":
 					if (FlxG.save.data.fpsCap > 290)
 						(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
-					FlxG.switchState(new MainMenuState());
+					
+					transition('IN');
+		
+					FlxG.sound.music.stop();
+		
+					if (PlayState.isStoryMode)
+						new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new StoryMenuState()); });
+					else
+						new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new FreeplayState()); });
 			}
 		}
 	}

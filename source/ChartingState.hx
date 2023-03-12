@@ -21,6 +21,7 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import lime.media.AudioBuffer;
 import haxe.Json;
 import haxe.io.Bytes;
@@ -89,6 +90,8 @@ class ChartingState extends MusicBeatState {
 	public var snapText:FlxText;
 
 	override function create() {
+		transition('OUT');
+		
 		curSection = lastSection;
 
 		if (PlayState.SONG != null)
@@ -699,7 +702,8 @@ class ChartingState extends MusicBeatState {
 			else
 				for (vocals in [P1vocals, P2vocals])
 					vocals.stop();
-			FlxG.switchState(new PlayState());
+			transition('GAMEIN');
+			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
 		}
 
 		if (FlxG.keys.justPressed.E) {
@@ -1224,12 +1228,14 @@ class ChartingState extends MusicBeatState {
 
 	function loadJson(song:String):Void {
 		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-		FlxG.switchState(new ChartingState());
+		transition('INDAMNED');
+		new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new ChartingState()); });
 	}
 
 	function loadAutosave():Void {
 		PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
-		FlxG.switchState(new ChartingState());
+		transition('INDAMNED');
+		new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new ChartingState()); });
 	}
 
 	function autosaveSong():Void {

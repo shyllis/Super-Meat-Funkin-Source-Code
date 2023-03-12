@@ -25,8 +25,6 @@ class MusicBeatState extends FlxUIState {
 		if (transIn != null)
 			trace('reg ' + transIn.region);
 
-		transition('OUT');
-
 		super.create();
 	}
 
@@ -101,11 +99,7 @@ class MusicBeatState extends FlxUIState {
 		#end
 	}
 
-	public function transition(type:String = 'IN')
-	{
-		if (type == 'IN')
-			openSubState(new TransSprite());
-		else if (type == 'OUT')
-			FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
+	public function transition(type:String) {
+		openSubState(new TransSprite(type.toLowerCase()));
 	}
 }

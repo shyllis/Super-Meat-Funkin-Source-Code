@@ -1,6 +1,7 @@
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
 import flixel.FlxCamera;
@@ -38,6 +39,8 @@ class GameplayCustomizeState extends MusicBeatState {
 	public override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		transition('OUT');
 
 		#if windows
 		DiscordClient.changePresence("Customizing Gameplay", null);
@@ -169,7 +172,8 @@ class GameplayCustomizeState extends MusicBeatState {
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(new OptionsMenu());
+			transition('IN');
+			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new OptionsState()); });
 		}
 	}
 

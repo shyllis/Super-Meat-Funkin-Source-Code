@@ -12,8 +12,15 @@ class Character extends FlxSprite {
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
 	public var barColor:FlxColor;
+	
+	public var stunned:Bool = false;
+	public var dadVar:Float = 4;
+	public var danceIdle:Bool = false;
 
 	public var holdTimer:Float = 0;
+	
+	public var positionX:Float = 0;
+	public var positionY:Float = 0;
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
@@ -54,6 +61,8 @@ class Character extends FlxSprite {
 
 				playAnim('danceRight');
 
+				danceIdle = true;
+
 				barColor = 0xFFA2044B;
 			case 'meatboy':
 				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
@@ -72,8 +81,55 @@ class Character extends FlxSprite {
 				playAnim('idle');
 	
 				setGraphicSize(Std.int(width * 0.35));
+				
+				positionX = -70;
+				positionY = 190;
 		
 				barColor = 0xffff2a2a;
+			case 'meatboyonfire':
+				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Up', 24);
+				animation.addByPrefix('singRIGHT', 'Right', 24);
+				animation.addByPrefix('singDOWN', 'Down', 24);
+				animation.addByPrefix('singLEFT', 'Left', 24);
+				
+				addOffset('idle', 249, -80);
+				addOffset('singDOWN', 273, -108);
+				addOffset('singRIGHT', 235, -80);
+				addOffset('singUP', 235, -32);
+				addOffset('singLEFT', 218, -98);
+		
+				playAnim('idle');
+	
+				setGraphicSize(Std.int(width * 0.35));
+				
+				positionX = 700;
+				positionY = 350;
+		
+				barColor = 0xffff2a2a;
+			case 'drfetus':
+				frames = Paths.getSparrowAtlas('characters/fetus', 'shared');
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Up', 24);
+				animation.addByPrefix('singRIGHT', 'Right', 24);
+				animation.addByPrefix('singDOWN', 'Down', 24);
+				animation.addByPrefix('singLEFT', 'Left', 24);
+
+				addOffset('idle', 249, -80);
+				addOffset('singRIGHT', 248, -89);
+				addOffset('singDOWN', 257, -96);
+				addOffset('singLEFT', 253, -98);
+				addOffset('singUP', 234, -77);
+		
+				playAnim('idle');
+		
+				setGraphicSize(Std.int(width * 0.4));
+
+				positionX = 70;
+				positionY = 150;
+		
+				barColor = 0xffECB0B0;
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/meatbf', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -104,24 +160,13 @@ class Character extends FlxSprite {
 
 				flipX = true;
 
-				barColor = 0xFF31b0d1;
-			case 'bf-dead':
-				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
-				animation.addByPrefix('firstDeath', "BF dies", 24, false);
-				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
-	
-				addOffset('firstDeath', 37, 11);
-				addOffset('deathLoop', 37, 5);
-				addOffset('deathConfirm', 37, 69);
-	
-				playAnim('firstDeath');
-	
-				flipX = true;
-	
+				positionX = -150;
+				positionY = -110;
+
 				barColor = 0xFF31b0d1;
 		}
 
+		recalculateDanceIdle();
 		dance();
 
 		if (isPlayer)
@@ -129,25 +174,33 @@ class Character extends FlxSprite {
 	}
 
 	override function update(elapsed:Float) {
+		if (!curCharacter.startsWith('bf')) {
+			if (animation.curAnim.name.startsWith('sing')) {
+				holdTimer += elapsed;
+			}
+
+			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
+				dance();
+				holdTimer = 0;
+			}
+		}
 		super.update(elapsed);
 	}
 
 	private var danced:Bool = false;
 
 	public function dance() {
-		switch (curCharacter) {
-			case 'gf':
-				if (!animation.curAnim.name.startsWith('hair')) {
-					danced = !danced;
+		if (danceIdle) {
+			if (!animation.curAnim.name.startsWith('hair')) {
+				danced = !danced;
 
-					if (danced)
-						playAnim('danceRight');
-					else
-						playAnim('danceLeft');
-				}
-			default:
-				playAnim('idle');
-		}
+				if (danced)
+					playAnim('danceRight');
+				else
+					playAnim('danceLeft');
+			}
+	    } else
+			playAnim('idle', true);
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
@@ -170,6 +223,27 @@ class Character extends FlxSprite {
 				danced = !danced;
 			}
 		}
+	}
+	
+	public var danceEveryNumBeats:Int = 2;
+	private var settingCharacterUp:Bool = true;
+	public function recalculateDanceIdle() {
+		var lastDanceIdle:Bool = danceIdle;
+		danceIdle = (animation.getByName('danceLeft') != null && animation.getByName('danceRight') != null);
+
+		if(settingCharacterUp)
+			danceEveryNumBeats = (danceIdle ? 1 : 2);
+		else if(lastDanceIdle != danceIdle) {
+			var calc:Float = danceEveryNumBeats;
+			if(danceIdle)
+				calc /= 2;
+			else
+				calc *= 2;
+
+			danceEveryNumBeats = Math.round(Math.max(calc, 1));
+		}
+
+		settingCharacterUp = false;
 	}
 
 	public function addOffset(name:String, x:Float = 0, y:Float = 0) {

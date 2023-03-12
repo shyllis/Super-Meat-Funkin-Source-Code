@@ -35,6 +35,8 @@ class StoryMenuState extends MusicBeatState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		transition('OUT');
 
 		#if windows
 		DiscordClient.changePresence("Story Mode Menu", null);
@@ -89,7 +91,8 @@ class StoryMenuState extends MusicBeatState {
 
 		if (controls.BACK && !movedBack && !selectedWeek) {
 			movedBack = true;
-			FlxG.switchState(new MainMenuState());
+			transition('IN');
+			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new MainMenuState()); });
 		}
 
 		super.update(elapsed);
@@ -103,7 +106,7 @@ class StoryMenuState extends MusicBeatState {
 			stopspamming = true;
 		}
 
-		transition();
+		transition('GAMEIN');
 		selectedWeek = true;
 		PlayState.storyPlaylist = weekData[0];
 		PlayState.isStoryMode = true;

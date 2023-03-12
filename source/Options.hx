@@ -59,8 +59,8 @@ class ChangeKeyBindsOption extends Option {
 	}
 
 	public override function press():Bool {
-		OptionsMenu.instance.selectedCatIndex = 4;
-		OptionsMenu.instance.switchCat(OptionsMenu.instance.options[4], false);
+		OptionsState.instance.selectedCatIndex = 4;
+		OptionsState.instance.switchCat(OptionsState.instance.options[4], false);
 		return false;
 	}
 
@@ -490,28 +490,6 @@ class TimerOption extends Option {
 	}
 }
 
-class BotPlay extends Option {
-	public function new(desc:String) {
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool {
-		FlxG.save.data.botplay = !FlxG.save.data.botplay;
-		trace('BotPlay : ' + FlxG.save.data.botplay);
-		display = updateDisplay();
-		return true;
-	}
-
-	public override function right():Bool {
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String
-		return "BotPlay: < " + (FlxG.save.data.botplay ? "Enabled" : "Disabled") + " >";
-}
-
 class MiddleScrollOption extends Option {
 	public function new(desc:String) {
 		super();
@@ -658,7 +636,6 @@ class ResetSettings extends Option {
 		FlxG.save.data.fpsCap = null;
 		FlxG.save.data.ghost = null;
 		FlxG.save.data.resetButton = null;
-		FlxG.save.data.botplay = null;
 		FlxG.save.data.upBind = null;
 		FlxG.save.data.downBind = null;
 		FlxG.save.data.rightBind = null;
