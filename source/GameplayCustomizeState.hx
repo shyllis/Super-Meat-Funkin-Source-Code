@@ -37,9 +37,6 @@ class GameplayCustomizeState extends MusicBeatState {
 	private var camHUD:FlxCamera;
 
 	public override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		
 		transition('OUT');
 
 		#if windows

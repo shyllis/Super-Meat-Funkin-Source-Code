@@ -32,9 +32,6 @@ class TitleState extends MusicBeatState {
 	var wackyImage:FlxSprite;
 
 	override public function create():Void {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		Init.Initialize();
 		@:privateAccess
 		{

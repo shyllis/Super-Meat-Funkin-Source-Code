@@ -511,51 +511,6 @@ class MiddleScrollOption extends Option {
 		return "Middle Scroll: < " + (FlxG.save.data.middleScroll ? "Enabled" : "Disabled") + " >";
 	}
 }
-
-class GLRenderOption extends Option {
-	public function new(desc:String) {
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool {
-		FlxG.save.data.useGL = !FlxG.save.data.useGL;
-		display = updateDisplay();
-		return true;
-	}
-
-	public override function right():Bool {
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String {
-		return "GPU Rendering: < " + (FlxG.save.data.useGL ? "Enabled" : "Disabled") + " >";
-	}
-}
-
-class GPUInfo extends Option {
-	public function new(desc:String) {
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool {
-		FlxG.save.data.GPUInfo = !FlxG.save.data.GPUInfo;
-		display = updateDisplay();
-		return true;
-	}
-
-	public override function right():Bool {
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String {
-		return "GPU Info: < " + (FlxG.save.data.GPUInfo ? "Enabled" : "Disabled") + " >";
-	}
-}
-
 class MemoryInfo extends Option {
 	public function new(desc:String) {
 		super();
@@ -628,7 +583,6 @@ class ResetSettings extends Option {
 		FlxG.save.data.bgNotesAlpha = null;
 		FlxG.save.data.noteSplashes = null;
 		FlxG.save.data.timer = null;
-		FlxG.save.data.GPUInfo = null;
 		FlxG.save.data.MEMInfo = null;
 		FlxG.save.data.changedHit = null;
 		FlxG.save.data.middleScroll = null;

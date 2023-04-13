@@ -33,9 +33,6 @@ class FreeplayState extends MusicBeatState {
 	var balls:Bool = false;
 
 	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		
 		transition('OUT');
 
 		#if windows
@@ -122,7 +119,9 @@ class FreeplayState extends MusicBeatState {
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = 0;
 				PlayState.storyWeek = 0;
-				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
+				new FlxTimer().start(1, function(tmr:FlxTimer) {
+					LoadingState.target = new PlayState();
+					FlxG.switchState(new LoadingState()); });
 			}
 		}
 	}

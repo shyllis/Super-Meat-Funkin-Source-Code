@@ -99,9 +99,6 @@ class OptionsState extends MusicBeatState {
 	public var descBack:FlxSprite;
 
 	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		
 		transition('OUT');
 		
 		persistentUpdate = true;
@@ -143,10 +140,8 @@ class OptionsState extends MusicBeatState {
 			]),
 			new OptionCata(640, 40, "Perfomance", [
 				new OverlayOption("Show The FPS And Other Debug Info"),
-				new GPUInfo("Shows GPU Info And System Info."),
 				new MemoryInfo("Toggle Memory info for overlay"),
 				new FPSCapOption("Change your FPS Cap."),
-				new GLRenderOption("Loads Sprites Into VRAM On The GPU."),
 			]),
 			new OptionCata(935, 40, "Saves", [
 				new ResetScoreOption("Reset your score on all songs and weeks. This is irreversible!"),

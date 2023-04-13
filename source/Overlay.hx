@@ -10,11 +10,6 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-enum GLInfo {
-	RENDERER;
-	SHADING_LANGUAGE_VERSION;
-}
-
 class Overlay extends TextField {
 	public var currentFrames(default, null):Int;
 
@@ -79,27 +74,6 @@ class Overlay extends TextField {
 				stats.push('Memory: ${getMemorySize(currentMemory)} / ${getMemorySize(currentMemoryPeak)}');
 			else
 				stats.remove('Memory: ${getMemorySize(currentMemory)} / ${getMemorySize(currentMemoryPeak)}');
-			if (FlxG.save.data.GPUInfo) {
-				stats.push('GL Renderer: ${getGLInfo(RENDERER)}');
-				stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
-				#if android
-				stats.push('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
-				#elseif mac
-				stats.push('System: ${lime.system.System.platformLabel}');
-				#else
-				stats.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
-				#end
-			} else {
-				stats.remove('GL Renderer: ${getGLInfo(RENDERER)}');
-				stats.remove('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
-				#if android
-				stats.remove('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
-				#elseif mac
-				stats.remove('System: ${lime.system.System.platformLabel}');
-				#else
-				stats.remove('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
-				#end
-			}
 			stats.push(''); // adding this to not hide the last line.
 			text = stats.join('\n');
 		}
@@ -123,19 +97,5 @@ class Overlay extends TextField {
 			str = '0${str}';
 
 		return str;
-	}
-
-	private function getGLInfo(info:GLInfo):String {
-		@:privateAccess
-		var gl:Dynamic = Lib.current.stage.context3D.gl;
-
-		switch (info) {
-			case RENDERER:
-				return Std.string(gl.getParameter(gl.RENDERER));
-			case SHADING_LANGUAGE_VERSION:
-				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
-		}
-
-		return '';
 	}
 }

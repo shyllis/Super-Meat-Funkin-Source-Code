@@ -38,9 +38,6 @@ class MainMenuState extends MusicBeatState {
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		
 		transition('OUT');
 
 		#if windows

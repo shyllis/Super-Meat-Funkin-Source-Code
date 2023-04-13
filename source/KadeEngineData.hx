@@ -27,9 +27,6 @@ class KadeEngineData {
 		if (FlxG.save.data.timer == null)
 			FlxG.save.data.timer = true;
 
-		if (FlxG.save.data.GPUInfo == null)
-			FlxG.save.data.GPUInfo = false;
-
 		if (FlxG.save.data.MEMInfo == null)
 			FlxG.save.data.MEMInfo = true;
 
@@ -50,9 +47,6 @@ class KadeEngineData {
 
 		if (FlxG.save.data.botplay == null)
 			FlxG.save.data.botplay = false;
-
-		if (FlxG.save.data.useGL == null)
-			FlxG.save.data.useGL = true;
 
 		if (FlxG.save.data.strumline == null)
 			FlxG.save.data.strumline = false;

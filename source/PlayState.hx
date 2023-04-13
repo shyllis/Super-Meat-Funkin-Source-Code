@@ -171,8 +171,6 @@ class PlayState extends MusicBeatState {
 		instance = this;
 		FlxG.mouse.visible = false;
 
-		Paths.clearStoredMemory();
-
 		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song)))
 			SepVocalsNull = true;
 
@@ -457,8 +455,6 @@ class PlayState extends MusicBeatState {
 		startSong();
 
 		super.create();
-
-		Paths.clearUnusedMemory();
 	}
 	
 	public function changeChar(newCharacter:String, type:Int, ?daGF:Bool = false) {
@@ -976,7 +972,7 @@ class PlayState extends MusicBeatState {
 			if (atEndOfSong) {
 				if (storyPlaylist.length <= 0) {
 					transition('INDAMNED');
-					new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new StoryMenuState()); });
+					new FlxTimer().start(1, function(tmr:FlxTimer) {Main.switchState(new StoryMenuState()); });
 				} else {
 					SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
 					transition('INGAME');
@@ -1026,6 +1022,18 @@ class PlayState extends MusicBeatState {
 		}
 
 		super.update(elapsed);
+
+		if (FlxG.keys.justPressed.C)
+		{
+			@:privateAccess
+			for (key in FlxG.bitmap._cache.keys())
+			{
+				if (key.contains('assets'))
+				{
+					trace('key: ' + key + " is on mem");
+				}
+			}
+		}
 
 		var scoreTxtChecked:Bool = false;
 
@@ -1403,7 +1411,7 @@ class PlayState extends MusicBeatState {
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 			transition('INDAMNED');
-			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new FreeplayState()); });
+			new FlxTimer().start(1, function(tmr:FlxTimer) {Main.switchState(new FreeplayState()); });
 		}
 	}
 

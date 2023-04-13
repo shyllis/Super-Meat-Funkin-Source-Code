@@ -33,9 +33,6 @@ class StoryMenuState extends MusicBeatState {
 	var stopspamming:Bool = false;
 
 	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-		
 		transition('OUT');
 
 		#if windows
@@ -115,6 +112,8 @@ class StoryMenuState extends MusicBeatState {
 			StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase());
 		PlayState.storyWeek = 0;
 		PlayState.campaignScore = 0;
-		new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
+		new FlxTimer().start(1, function(tmr:FlxTimer) {				
+			LoadingState.target = new PlayState();
+			FlxG.switchState(new LoadingState());});
 	}
 }

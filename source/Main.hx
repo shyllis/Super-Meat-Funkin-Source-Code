@@ -4,6 +4,7 @@ import openfl.display.BlendMode;
 import openfl.text.TextFormat;
 import openfl.display.Application;
 import flixel.util.FlxColor;
+import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -12,6 +13,7 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.system.System;
 
 class Main extends Sprite {
 	var gameWidth:Int = 1280;
@@ -88,5 +90,38 @@ class Main extends Sprite {
 
 	public function getFPS():Float {
 		return fpsCounter.currentFrames;
+	}
+
+	public static var persistentAssets:Array<FlxGraphic> = [];
+	public static function dumpCache()
+	{
+		if (Main.dumping)
+		{
+			trace('removed ur mom');
+			@:privateAccess
+			for (key in FlxG.bitmap._cache.keys())
+			{
+				var obj = FlxG.bitmap._cache.get(key);
+				if (obj != null && !persistentAssets.contains(obj))
+				{
+					Assets.cache.removeBitmapData(key);
+					FlxG.bitmap._cache.remove(key);
+					obj.destroy();
+					openfl.Assets.cache.removeBitmapData(key);
+				}
+			}
+			for (stuff in Assets.list(SOUND))
+				Assets.cache.clear(stuff);
+			System.gc();
+		}
+		Main.dumping = false;
+	}
+
+	public static var dumping:Bool = false;
+
+	public static function switchState(target:FlxState)
+	{
+		dumping = true;
+		FlxG.switchState(target);
 	}
 }
