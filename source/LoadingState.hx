@@ -48,9 +48,9 @@ class LoadingState extends MusicBeatState
 		FlxGraphic.defaultPersist = true;
 		Thread.create(() ->
 		{
+			screen.setLoadingText("Loading images...");
 			for (image in imagesToCache)
 			{
-				screen.setLoadingText("Loading images..." + image);
 				trace("Caching image " + image);
 				FlxG.bitmap.add(image);
 				screen.progress += 1;
