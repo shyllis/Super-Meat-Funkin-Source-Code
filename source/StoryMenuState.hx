@@ -18,7 +18,7 @@ import flixel.graphics.FlxGraphic;
 using StringTools;
 
 class StoryMenuState extends MusicBeatState {
-	var weekData:Array<Dynamic> = [['Meat', 'Song2']];
+	var weekData:Array<Dynamic> = [['Meaty', 'Song2']];
 	
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -98,12 +98,12 @@ class StoryMenuState extends MusicBeatState {
 	function selectWeek() {
 		if (stopspamming == false) {
 			FlxG.sound.play(Paths.sound('confirmMenu'));
-
+			transition('GAMEIN');
+			
 			FlxFlicker.flicker(storyText, 1, 0.06, false, false);
 			stopspamming = true;
 		}
 
-		transition('GAMEIN');
 		selectedWeek = true;
 		PlayState.storyPlaylist = weekData[0];
 		PlayState.isStoryMode = true;

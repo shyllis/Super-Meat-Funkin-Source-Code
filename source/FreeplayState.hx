@@ -16,7 +16,7 @@ import Discord.DiscordClient;
 using StringTools;
 
 class FreeplayState extends MusicBeatState {
-	var songName:String = 'Meat';
+	var songName:String = 'Meaty';
 
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -38,7 +38,7 @@ class FreeplayState extends MusicBeatState {
 		#if windows
 		DiscordClient.changePresence("Freeplay Menu", null);
 		#end
-
+		
 		if (!FlxG.sound.music.playing) {
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			FlxG.sound.music.time = 3000;
@@ -130,7 +130,7 @@ class FreeplayState extends MusicBeatState {
 		balls = !balls;
 
 		if (balls) {
-			songName = 'Meat';
+			songName = 'Meaty';
 			songOneBanner.alpha = 1;
 			songTwoBanner.alpha = 0.5;
 		} else {

@@ -47,9 +47,9 @@ class TransSprite extends FlxSubState {
             case 'gamein':
                 add(saw);
                 saw.screenCenter(Y);
-                saw.x = -1000;
+                saw.x = -1010;
                 black.alpha = 0.0001;
-                FlxTween.tween(saw, {x: 480}, 0.4);
+                FlxTween.tween(saw, {x: 470}, 0.4);
                 new FlxTimer().start(0.4, function(tmr:FlxTimer)
                     black.alpha = 1);
             case 'gameout':

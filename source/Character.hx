@@ -21,7 +21,6 @@ class Character extends FlxSprite {
 	
 	public var positionX:Float = 0;
 	public var positionY:Float = 0;
-
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
 
@@ -85,7 +84,7 @@ class Character extends FlxSprite {
 				positionX = -70;
 				positionY = 190;
 		
-				barColor = 0xffff2a2a;
+				barColor = 0xffce1224;
 			case 'meatboyonfire':
 				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -107,7 +106,7 @@ class Character extends FlxSprite {
 				positionX = 700;
 				positionY = 350;
 		
-				barColor = 0xffff2a2a;
+				barColor = 0xffce1224;
 			case 'drfetus':
 				frames = Paths.getSparrowAtlas('characters/fetus', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -224,7 +223,7 @@ class Character extends FlxSprite {
 			}
 		}
 	}
-	
+
 	public var danceEveryNumBeats:Int = 2;
 	private var settingCharacterUp:Bool = true;
 	public function recalculateDanceIdle() {
@@ -245,7 +244,7 @@ class Character extends FlxSprite {
 
 		settingCharacterUp = false;
 	}
-
+	
 	public function addOffset(name:String, x:Float = 0, y:Float = 0) {
 		animOffsets[name] = [x, y];
 	}
