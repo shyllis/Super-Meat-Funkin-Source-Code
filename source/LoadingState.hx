@@ -35,8 +35,6 @@ class LoadingState extends MusicBeatState
 		for (image in Assets.list(IMAGE))
 		{
 			var library = image.startsWith('assets/shared') ? 'shared' : '';
-			if (image.startsWith('assets/shared'))
-				library = 'shared';
 
 			if (image.startsWith('assets/shared/images/characters') 
 				|| image.startsWith('assets/shared/images/bgs'))
