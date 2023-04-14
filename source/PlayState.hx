@@ -168,6 +168,9 @@ class PlayState extends MusicBeatState {
 	var dodgeSaw:FlxSprite;
 
 	public var hideGf:Bool = false;
+
+	public var hitSounds:Bool;
+	public var hitVolume:String = FlxG.save.data.hitsoundsVolume;
 	
 	override public function create() {
 		instance = this;
@@ -182,6 +185,9 @@ class PlayState extends MusicBeatState {
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
+		if (FlxG.save.data.hitsoundsVolume != 0)
+			hitSounds = true;
+		
 		sicks = 0;
 		bads = 0;
 		shits = 0;
@@ -1783,8 +1789,8 @@ class PlayState extends MusicBeatState {
 			if (!note.isSustainNote) {
 				popUpScore(note);
 				combo += 1;
-				if (FlxG.save.data.hitsoundsVolume != 0)
-					FlxG.sound.play(Paths.sound('hitsound', FlxG.save.data.hitsoundsVolume));
+				if (hitSounds)
+					FlxG.sound.play(Paths.sound('hitsound', hitVolume));
 			} else
 				totalNotesHit += 1;
 
