@@ -26,15 +26,15 @@ class NoteSplash extends FlxSprite {
 		alpha = 0.6;
 
 		animation.play('note' + noteData + '-' + FlxG.random.int(0, 1), true);
-		animation.curAnim.frameRate += FlxG.random.int(-2, 2);
+		if(animation.curAnim != null)
+			animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
 		updateHitbox();
 
 		offset.set(width * 0.3, height * 0.3);
 	}
 
 	override function update(elapsed:Float) {
-		if (animation.curAnim.finished)
-			kill();
+		if(animation.curAnim != null) if(animation.curAnim.finished) kill();
 
 		super.update(elapsed);
 	}
