@@ -8,6 +8,9 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+#if desktop
+import Discord.DiscordClient;
+#end
 
 class OptionCata extends FlxSprite {
 	public var title:String;
@@ -101,6 +104,10 @@ class OptionsState extends MusicBeatState {
 	override function create() {
 		transition('OUT');
 		
+		#if windows
+		DiscordClient.changePresence("Options Menu", null);
+		#end
+
 		persistentUpdate = true;
 
 		menuBG = new FlxSprite().loadGraphic(Paths.image("daMeatBG"));
