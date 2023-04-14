@@ -1368,12 +1368,12 @@ class PlayState extends MusicBeatState {
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
 
 		canPause = false;
-		FlxG.sound.music.volume = 0;
+		FlxG.sound.music.stop();
 		if (SepVocalsNull)
-			vocals.volume = 0;
+			vocals.stop();
 		else
 			for (vocals in [P1vocals, P2vocals])
-				vocals.volume = 0;
+				vocals.stop();
 		if (SONG.validScore) {
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
 			
@@ -1382,14 +1382,17 @@ class PlayState extends MusicBeatState {
 			#end
 		}
 
+		if (!FlxG.sound.music.playing) {
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.music.time = 3000;
+		}
+
 		if (isStoryMode) {
 			campaignScore += Math.round(songScore);
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
 			if (storyPlaylist.length <= 0) {
-				FlxG.sound.music.stop();
-				
 				transition('INDAMNED');
 				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new StoryMenuState()); });
 
@@ -1404,14 +1407,11 @@ class PlayState extends MusicBeatState {
 				prevCamFollow = camFollow;
 
 				PlayState.SONG = Song.loadFromJson(nextSongLowercase, PlayState.storyPlaylist[0]);
-				FlxG.sound.music.stop();
-
+				
 				transition('GAMEIN');
 				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new PlayState()); });
 			}
 		} else {
-			FlxG.sound.music.stop();
-			
 			transition('INDAMNED');
 			new FlxTimer().start(1, function(tmr:FlxTimer) {Main.switchState(new FreeplayState()); });
 		}
