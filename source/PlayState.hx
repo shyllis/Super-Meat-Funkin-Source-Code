@@ -165,6 +165,8 @@ class PlayState extends MusicBeatState {
 
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
+	var dodgeSaw:FlxSprite;
+
 	public var hideGf:Bool = false;
 	
 	override public function create() {
@@ -1171,6 +1173,22 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (generatedMusic) {
+			if (curSong.toLowerCase() == 'meaty') {
+				if (FlxG.keys.justPressed.SPACE && !boyfriend.animation.curAnim.name.startsWith('jump'))
+					boyfriend.playAnim('jump', true);
+			
+				// if (boyfriend.overlaps(dodgeSaw)) {
+				// }
+			}
+		
+			//if (curSong.toLowerCase() == 'song2') {
+				//if (FlxG.keys.justPressed.SPACE && !boyfriend.animation.curAnim.name.startsWith('jump'))
+				//	boyfriend.playAnim('jump', true);
+		
+				// if (boyfriend.overlaps(dodgeSaw)) {
+				// }
+			//}
+
 			if (!inCutscene) {
 				keyShit();
 			}
@@ -1576,7 +1594,7 @@ class PlayState extends MusicBeatState {
 					goodNoteHit(daNote);
 			});
 		} else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * 0.0011 * boyfriend.dadVar && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
-			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && !boyfriend.animation.curAnim.name.startsWith('jump'))
 				boyfriend.dance();
 		}
 

@@ -58,7 +58,7 @@ class Character extends FlxSprite {
 
 				addOffset('scared', -2, -17);
 
-				playAnim('danceRight');
+				playAnim('danceRight', true);
 
 				danceIdle = true;
 
@@ -77,7 +77,7 @@ class Character extends FlxSprite {
 				addOffset('singUP', 235, -32);
 				addOffset('singLEFT', 218, -98);
 		
-				playAnim('idle');
+				playAnim('idle', true);
 	
 				setGraphicSize(Std.int(width * 0.35));
 				
@@ -99,7 +99,7 @@ class Character extends FlxSprite {
 				addOffset('singUP', 235, -32);
 				addOffset('singLEFT', 218, -98);
 		
-				playAnim('idle');
+				playAnim('idle', true);
 	
 				setGraphicSize(Std.int(width * 0.35));
 				
@@ -121,14 +121,14 @@ class Character extends FlxSprite {
 				addOffset('singLEFT', 253, -98);
 				addOffset('singUP', 234, -77);
 		
-				playAnim('idle');
+				playAnim('idle', true);
 		
 				setGraphicSize(Std.int(width * 0.4));
 
 				positionX = 70;
 				positionY = 150;
 		
-				barColor = 0xffECB0B0;
+				barColor = 0xffe9b4bb;
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/meatbf', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -141,19 +141,23 @@ class Character extends FlxSprite {
 				animation.addByPrefix('singRIGHTmiss', 'MissRight', 24, false);
 				animation.addByPrefix('singDOWNmiss', 'MissDown', 24, false);
 				animation.addByPrefix('scared', 'WHAT', 24);
+				animation.addByPrefix('jump', 'jump', 24);
 
-				addOffset('scared', 2, 6);
-				addOffset('singDOWN', 19, -11);
-				addOffset('singRIGHTmiss', 10, 2);
-				addOffset('singLEFTmiss', 18, -12);
-				addOffset('singUP', 5, 44);
 				addOffset('idle', -5, -10);
-				addOffset('singDOWNmiss', -8, -17);
-				addOffset('singRIGHT', 42, -5);
-				addOffset('singUPmiss', 11, 77);
-				addOffset('singLEFT', 33, -8);
+				addOffset('singDOWN', -1, -36);
+				addOffset('singUP', -5, 24);
+				addOffset('singLEFT', 23, -28);
+				addOffset('singRIGHT', 24, -22);
 
-				playAnim('idle');
+				addOffset('singRIGHTmiss', 10, -18);
+				addOffset('singLEFTmiss', 8, -32);
+				addOffset('singDOWNmiss', -15, -33);
+				addOffset('singUPmiss', -9, 48);
+				
+				addOffset('scared', -8, -14);
+				addOffset('jump', 26, -22);
+
+				playAnim('idle', true);
 				
 				setGraphicSize(Std.int(width * 0.4));
 
@@ -162,7 +166,7 @@ class Character extends FlxSprite {
 				positionX = -150;
 				positionY = -110;
 
-				barColor = 0xFF31b0d1;
+				barColor = 0xFF13baca;
 		}
 
 		recalculateDanceIdle();
