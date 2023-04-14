@@ -10,7 +10,7 @@ class DiscordClient {
 	public function new() {
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			clientID: "1071122391402561577",
+			clientID: "1096298445381312652",
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
@@ -31,10 +31,10 @@ class DiscordClient {
 
 	static function onReady() {
 		DiscordRpc.presence({
-			details: "In the Menus",
+			details: "Title State",
 			state: null,
-			largeImageKey: 'iconbg',
-			largeImageText: "KEL By Goldie-5 And Shyllis"
+			largeImageKey: 'icon',
+			largeImageText: "Super Meat Funkin'"
 		});
 	}
 
@@ -63,8 +63,8 @@ class DiscordClient {
 		DiscordRpc.presence({
 			details: details,
 			state: state,
-			largeImageKey: 'iconbg',
-			largeImageText: "KEL By Goldie-5 And Shyllis",
+			largeImageKey: 'icon',
+			largeImageText: "Super Meat Funkin'",
 			smallImageKey: smallImageKey,
 			startTimestamp: Std.int(startTimestamp / 1000),
 			endTimestamp: Std.int(endTimestamp / 1000)
