@@ -15,6 +15,9 @@ class KadeEngineData {
 		if (FlxG.save.data.bgNotesAlpha == null)
 			FlxG.save.data.bgNotesAlpha = 0;
 
+		if (FlxG.save.data.hitsoundsVolume == null)
+			FlxG.save.data.hitsoundsVolume = 0;
+		
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;
 

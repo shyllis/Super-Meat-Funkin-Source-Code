@@ -365,6 +365,44 @@ class NotesBGAlpha extends Option {
 	}
 }
 
+class HitSoundsVolume extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool {
+		return false;
+	}
+
+	private override function updateDisplay():String {
+		return "Hitsounds Volume: < " + FlxG.save.data.hitsoundsVolume + " >";
+	}
+
+	override function right():Bool {
+		if (FlxG.save.data.hitsoundsVolume >= 1)
+			FlxG.save.data.hitsoundsVolume = 1;
+		else
+			FlxG.save.data.hitsoundsVolume = FlxG.save.data.hitsoundsVolume + 0.1;
+
+		return true;
+	}
+
+	override function left():Bool {
+		if (FlxG.save.data.hitsoundsVolume <= 0)
+			FlxG.save.data.hitsoundsVolume = 0;
+		else
+			FlxG.save.data.hitsoundsVolume = FlxG.save.data.hitsoundsVolume - 0.1;
+
+		return true;
+	}
+
+	override function getValue():String {
+		return updateDisplay();
+	}
+}
+
 class FPSCapOption extends Option {
 	public function new(desc:String) {
 		super();

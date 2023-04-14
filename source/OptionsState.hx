@@ -135,6 +135,7 @@ class OptionsState extends MusicBeatState {
 				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
 				new NotesBGAlpha("Alpha Of The Lane Transparency."),
+				new HitSoundsVolume("Volume of the hitsounds when you press a note."),
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")
 			]),

@@ -1783,6 +1783,8 @@ class PlayState extends MusicBeatState {
 			if (!note.isSustainNote) {
 				popUpScore(note);
 				combo += 1;
+				if (FlxG.save.data.hitsoundsVolume != 0)
+					FlxG.sound.play(Paths.sound('hitsound'));
 			} else
 				totalNotesHit += 1;
 
