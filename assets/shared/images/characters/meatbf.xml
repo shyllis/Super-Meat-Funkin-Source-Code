@@ -31,6 +31,12 @@
 	<SubTexture name="Idle0010" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
 	<SubTexture name="Idle0011" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
 	<SubTexture name="Idle0012" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0013" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0014" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0015" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0016" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0017" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
+	<SubTexture name="Idle0018" x="7266" y="0" width="891" height="755" frameX="-6" frameY="-7" frameWidth="928" frameHeight="773"/>
 	<SubTexture name="Jump0000" x="0" y="759" width="945" height="759" frameX="0" frameY="-913" frameWidth="964" frameHeight="1672"/>
 	<SubTexture name="Jump0001" x="945" y="759" width="924" height="738" frameX="-22" frameY="-602" frameWidth="964" frameHeight="1672"/>
 	<SubTexture name="Jump0002" x="1869" y="759" width="931" height="801" frameX="-22" frameY="-302" frameWidth="964" frameHeight="1672"/>
