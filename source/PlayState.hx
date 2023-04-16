@@ -381,12 +381,12 @@ class PlayState extends MusicBeatState {
 		add(healthBarBG);
 
 		var length:Float = FlxG.sound.music.length / 1000;
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBar.width), Std.int(healthBar.height), this,
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		healthBar.createImageBar(Paths.image('bar/HP'), Paths.image('bar/HP'));
 		add(healthBar);
-		timeBar = new FlxBar(healthBar.x + 4, healthBar.y + 4, LEFT_TO_RIGHT, Std.int(timeBar.width), Std.int(timeBar.height), this,
+		timeBar = new FlxBar(healthBar.x + 4, healthBar.y + 4, LEFT_TO_RIGHT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
 		'secondsTotal', 0, length);
 		timeBar.scrollFactor.set();
 		timeBar.createImageBar(Paths.image('bar/TIME'), null);
