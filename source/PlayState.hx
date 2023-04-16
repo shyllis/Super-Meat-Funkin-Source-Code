@@ -22,6 +22,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
+import flixel.system.FlxAssets;
 import lime.utils.Assets;
 import hxcodec.VideoHandler;
 import hxcodec.VideoSprite;
@@ -140,6 +141,8 @@ class PlayState extends MusicBeatState {
 	var scoreTxt:FlxText;
 	var RatingCounter:FlxText;
 	var timer:FlxText;
+	var secondsTotal:Int;
+	var timeBar:FlxBar;
 	var info:FlxText;
 	var flashyWashy:FlxSprite;
 
@@ -369,18 +372,25 @@ class PlayState extends MusicBeatState {
 
 		FlxG.fixedTimestep = false;
 
-		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar', 'shared'));
+		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('bar/BG'));
 		if (FlxG.save.data.downscroll)
 			healthBarBG.y = 50;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
+		healthBarBG.alpha = 0.5;
 		add(healthBarBG);
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+		var length:Float = FlxG.sound.music.length / 1000;
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBar.width), Std.int(healthBar.height), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(dad.barColor, boyfriend.barColor);
+		healthBar.createImageBar(Paths.image('bar/HP'), Paths.image('bar/HP'));
 		add(healthBar);
+		timeBar = new FlxBar(healthBar.x + 4, healthBar.y + 4, LEFT_TO_RIGHT, Std.int(timeBar.width), Std.int(timeBar.height), this,
+		'secondsTotal', 0, length);
+		timeBar.scrollFactor.set();
+		timeBar.createImageBar(Paths.image('bar/TIME'), null);
+		add(timeBar);
 
 		RatingCounter = new FlxText(20, 0, 0, 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}', 20);
 		RatingCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -417,7 +427,7 @@ class PlayState extends MusicBeatState {
 		if (!FlxG.save.data.botplay)
 			add(scoreTxt);
 
-		timer = new FlxText(20, scoreTxt.y - 25, 0, '', 25);
+		timer = new FlxText(timeBar.x, timeBar.y, 0, '', 25);
 		timer.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		if (FlxG.save.data.downscroll)
 			timer.y = 65;
@@ -447,6 +457,7 @@ class PlayState extends MusicBeatState {
 		info.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
+		timeBar.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -996,20 +1007,16 @@ class PlayState extends MusicBeatState {
 		#end
 
 		info.text = '${SONG.song}' + ' - ' + "Hard";
-		if (FlxG.save.data.timer) {
-			var curTime:Float = Conductor.songPosition;
-			if (curTime < 0)
-				curTime = 0;
-			var secondsTotal:Int = Math.floor(curTime / 1000);
-			if (secondsTotal < 0)
-				secondsTotal = 0;
-			timer.text = FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false);
-		}
+
+		secondsTotal = Math.floor(Conductor.songPosition / 1000);
+		if (secondsTotal < 0)
+			secondsTotal = 0;
+		timer.text = FlxStringUtil.formatTime(secondsTotal, false);
+
 		if (FlxG.save.data.ratingCounter)
 			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\n';
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
-
 		{
 			var balls = notesHitArray.length - 1;
 			while (balls >= 0) {
