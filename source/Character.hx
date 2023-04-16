@@ -58,7 +58,7 @@ class Character extends FlxSprite {
 
 				addOffset('scared', -2, -17);
 
-				playAnim('danceRight', true);
+				playAnim('danceRight');
 
 				danceIdle = true;
 
@@ -77,7 +77,7 @@ class Character extends FlxSprite {
 				addOffset('singUP', 235, -32);
 				addOffset('singLEFT', 218, -98);
 		
-				playAnim('idle', true);
+				playAnim('idle');
 	
 				setGraphicSize(Std.int(width * 0.35));
 				
@@ -99,7 +99,7 @@ class Character extends FlxSprite {
 				addOffset('singUP', 235, -32);
 				addOffset('singLEFT', 218, -98);
 		
-				playAnim('idle', true);
+				playAnim('idle');
 	
 				setGraphicSize(Std.int(width * 0.35));
 				
@@ -121,7 +121,7 @@ class Character extends FlxSprite {
 				addOffset('singLEFT', 253, -98);
 				addOffset('singUP', 234, -77);
 		
-				playAnim('idle', true);
+				playAnim('idle');
 		
 				setGraphicSize(Std.int(width * 0.4));
 
@@ -157,7 +157,7 @@ class Character extends FlxSprite {
 				addOffset('scared', -8, -14);
 				addOffset('jump', 26, -22);
 
-				playAnim('idle', true);
+				playAnim('idle');
 				
 				setGraphicSize(Std.int(width * 0.4));
 
@@ -178,9 +178,8 @@ class Character extends FlxSprite {
 
 	override function update(elapsed:Float) {
 		if (!curCharacter.startsWith('bf')) {
-			if (animation.curAnim.name.startsWith('sing')) {
+			if (animation.curAnim.name.startsWith('sing'))
 				holdTimer += elapsed;
-			}
 
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
 				dance();
@@ -210,21 +209,19 @@ class Character extends FlxSprite {
 		animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);
-		if (animOffsets.exists(AnimName)) {
+		if (animOffsets.exists(AnimName))
 			offset.set(daOffset[0], daOffset[1]);
-		} else
+		else
 			offset.set(0, 0);
 
 		if (curCharacter == 'gf') {
-			if (AnimName == 'singLEFT') {
+			if (AnimName == 'singLEFT')
 				danced = true;
-			} else if (AnimName == 'singRIGHT') {
+			else if (AnimName == 'singRIGHT')
 				danced = false;
-			}
 
-			if (AnimName == 'singUP' || AnimName == 'singDOWN') {
+			if (AnimName == 'singUP' || AnimName == 'singDOWN')
 				danced = !danced;
-			}
 		}
 	}
 
