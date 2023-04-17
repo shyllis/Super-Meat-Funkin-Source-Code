@@ -27,9 +27,6 @@ class KadeEngineData {
 		if (FlxG.save.data.ratingCounter == null)
 			FlxG.save.data.ratingCounter = true;
 
-		if (FlxG.save.data.timer == null)
-			FlxG.save.data.timer = true;
-
 		if (FlxG.save.data.MEMInfo == null)
 			FlxG.save.data.MEMInfo = true;
 

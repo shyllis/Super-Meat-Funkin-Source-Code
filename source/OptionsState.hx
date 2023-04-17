@@ -143,8 +143,7 @@ class OptionsState extends MusicBeatState {
 				new AccuracyOption("Display accuracy information on the info bar."),
 				new NotesBGAlpha("Alpha Of The Lane Transparency."),
 				new HitSoundsVolume("Volume of the hitsounds when you press a note."),
-				new RatingCounterOption("Display note hit ratings information."),
-				new TimerOption("Display song timer.")
+				new RatingCounterOption("Display note hit ratings information.")
 			]),
 			new OptionCata(640, 40, "Perfomance", [
 				new OverlayOption("Show The FPS And Other Debug Info"),

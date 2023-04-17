@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
 
 using StringTools;
 
@@ -11,7 +10,7 @@ class Character extends FlxSprite {
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
-	public var barColor:FlxColor;
+	public var barPic:String;
 	
 	public var stunned:Bool = false;
 	public var dadVar:Float = 4;
@@ -61,8 +60,6 @@ class Character extends FlxSprite {
 				playAnim('danceRight');
 
 				danceIdle = true;
-
-				barColor = 0xFFA2044B;
 			case 'meatboy':
 				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -84,7 +81,7 @@ class Character extends FlxSprite {
 				positionX = -70;
 				positionY = 190;
 		
-				barColor = 0xffce1224;
+				barPic = 'Meaty';
 			case 'meatboyonfire':
 				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -106,7 +103,7 @@ class Character extends FlxSprite {
 				positionX = 700;
 				positionY = 350;
 		
-				barColor = 0xffce1224;
+				barPic = 'Meaty';
 			case 'drfetus':
 				frames = Paths.getSparrowAtlas('characters/fetus', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -128,7 +125,7 @@ class Character extends FlxSprite {
 				positionX = 70;
 				positionY = 150;
 		
-				barColor = 0xffe9b4bb;
+				barPic = 'Fetus';
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/meatbf', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
@@ -166,7 +163,7 @@ class Character extends FlxSprite {
 				positionX = -150;
 				positionY = -110;
 
-				barColor = 0xFF13baca;
+				barPic = 'BF';
 		}
 
 		recalculateDanceIdle();

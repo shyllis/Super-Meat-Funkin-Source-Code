@@ -138,7 +138,6 @@ class PlayState extends MusicBeatState {
 	var talking:Bool = true;
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
-	var scoreTxt:FlxText;
 	var RatingCounter:FlxText;
 	var timer:FlxText;
 	var secondsTotal:Int;
@@ -315,7 +314,7 @@ class PlayState extends MusicBeatState {
 		Conductor.songPosition = 0;
 
 		if (FlxG.save.data.bgNotesAlpha != 0) {
-			notesBgBoyfriend = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+			notesBgBoyfriend = new FlxSprite(717, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
 			notesBgBoyfriend.cameras = [camHUD];
 			notesBgBoyfriend.alpha = FlxG.save.data.bgNotesAlpha;
 			notesBgBoyfriend.screenCenter(Y);
@@ -324,7 +323,7 @@ class PlayState extends MusicBeatState {
 			add(notesBgBoyfriend);
 
 			if (!FlxG.save.data.middleScroll) {
-				notesBgDad = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+				notesBgDad = new FlxSprite(77, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
 				notesBgDad.cameras = [camHUD];
 				notesBgDad.alpha = FlxG.save.data.bgNotesAlpha;
 				notesBgDad.screenCenter(Y);
@@ -377,22 +376,26 @@ class PlayState extends MusicBeatState {
 			healthBarBG.y = 50;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		healthBarBG.alpha = 0.5;
 		add(healthBarBG);
 
-		var length:Float = FlxG.sound.music.length / 1000;
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
+		healthBar = new FlxBar(healthBarBG.x, healthBarBG.y, RIGHT_TO_LEFT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createImageBar(Paths.image('bar/HP'), Paths.image('bar/HP'));
+		healthBar.createImageBar(Paths.image('bar/HP' + dad.barPic), Paths.image('bar/HP' + boyfriend.barPic));
 		add(healthBar);
-		timeBar = new FlxBar(healthBar.x + 4, healthBar.y + 4, LEFT_TO_RIGHT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
+
+		var length:Float = FlxG.sound.music.length / 1000;
+		timeBar = new FlxBar(0, FlxG.height * 0.9, LEFT_TO_RIGHT, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
 		'secondsTotal', 0, length);
+		if (FlxG.save.data.downscroll)
+			timeBar.y = 50;
 		timeBar.scrollFactor.set();
-		timeBar.createImageBar(Paths.image('bar/TIME'), null);
+		timeBar.createImageBar(Paths.image('bar/TIMEBlack'), Paths.image('bar/TIME'));
+		timeBar.numDivisions = 800;
+		timeBar.screenCenter(X);
 		add(timeBar);
 
-		RatingCounter = new FlxText(20, 0, 0, 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}', 20);
+		RatingCounter = new FlxText(20, 0, 0, '', 20);
 		RatingCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		RatingCounter.borderSize = 1;
 		RatingCounter.borderQuality = 2;
@@ -412,32 +415,25 @@ class PlayState extends MusicBeatState {
 			add(botPlayState);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
-		iconP1.y = healthBar.y - (iconP1.height / 2);
+		iconP1.setGraphicSize(Std.int(iconP1.width * 0.7));
+		iconP1.y = healthBar.y - (iconP1.height / 2) + 10;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(SONG.player2, false);
-		iconP2.y = healthBar.y - (iconP2.height / 2);
+		iconP2.setGraphicSize(Std.int(iconP2.width * 0.7));
+		iconP2.y = healthBar.y - (iconP2.height / 2) + 10;
 		add(iconP2);
 
-		scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 35, 0, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.borderSize = 1;
-		scoreTxt.borderQuality = 2;
-		scoreTxt.scrollFactor.set();
-		if (!FlxG.save.data.botplay)
-			add(scoreTxt);
-
-		timer = new FlxText(timeBar.x, timeBar.y, 0, '', 25);
+		timer = new FlxText(0, FlxG.height * 0.9 + 25, 0, '', 20);
 		timer.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		if (FlxG.save.data.downscroll)
 			timer.y = 65;
 		timer.borderSize = 1;
 		timer.borderQuality = 2;
 		timer.scrollFactor.set();
-		if (FlxG.save.data.timer)
-			add(timer);
+		add(timer);
 
-		info = new FlxText(20, scoreTxt.y - 5, 0, '', 25);
+		info = new FlxText(0, 30, 400, '', 25);
 		info.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		if (FlxG.save.data.downscroll)
 			info.y = 45;
@@ -460,7 +456,6 @@ class PlayState extends MusicBeatState {
 		timeBar.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
-		scoreTxt.cameras = [camHUD];
 		botPlayState.cameras = [camHUD];
 		flashyWashy.cameras = [camHUD];
 
@@ -486,8 +481,8 @@ class PlayState extends MusicBeatState {
 					boyfriend = boyfriendMap.get(newCharacter);
 					boyfriend.alpha = lastAlpha;
 					iconP1.changeIcon(newCharacter);
-					healthBar.createFilledBar(dad.barColor, boyfriend.barColor);
-					healthBar.updateFilledBar();
+					healthBar.createImageBar(Paths.image('bar/HP' + dad.barPic), Paths.image('bar/HP' + boyfriend.barPic));
+					healthBar.updateBar();
 				}
 
 			case 1:
@@ -505,8 +500,8 @@ class PlayState extends MusicBeatState {
 					dad = dadMap.get(newCharacter);
 					dad.alpha = lastAlpha;
 					iconP2.changeIcon(newCharacter);
-					healthBar.createFilledBar(dad.barColor, boyfriend.barColor);
-					healthBar.updateFilledBar();
+					healthBar.createImageBar(Paths.image('bar/HP' + dad.barPic), Paths.image('bar/HP' + boyfriend.barPic));
+					healthBar.updateBar();
 				}
 
 			case 2:
@@ -789,7 +784,7 @@ class PlayState extends MusicBeatState {
 			if (FlxG.save.data.middleScroll)
 				babyArrow.x += ((FlxG.width / 2) * player) + 50;
 			else
-				babyArrow.x += ((FlxG.width / 2) * player) + 100;
+				babyArrow.x += ((FlxG.width / 2) * player) + 97;
 
 			cpuStrums.forEach(function(spr:FlxSprite) {
 				spr.centerOffsets();
@@ -1007,14 +1002,19 @@ class PlayState extends MusicBeatState {
 		#end
 
 		info.text = '${SONG.song}' + ' - ' + "Hard";
+		info.screenCenter(X);
 
 		secondsTotal = Math.floor(Conductor.songPosition / 1000);
 		if (secondsTotal < 0)
 			secondsTotal = 0;
-		timer.text = FlxStringUtil.formatTime(secondsTotal, false);
+		var daSecondsTotal:Int = Math.floor((songLength - Conductor.songPosition) / 1000);
+		if (daSecondsTotal < 0)
+			daSecondsTotal = 0;
+		timer.text = FlxStringUtil.formatTime(daSecondsTotal, false);
+		timer.screenCenter(X);
 
 		if (FlxG.save.data.ratingCounter)
-			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\n';
+			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}';
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 		{
@@ -1043,21 +1043,6 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		var scoreTxtChecked:Bool = false;
-
-		if (FlxG.save.data.accuracyDisplay) {
-			scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, accuracy);
-			scoreTxt.screenCenter(X);
-
-			scoreTxtChecked = true;
-		} else {
-			scoreTxt.text = "Score: " + songScore;
-			scoreTxt.screenCenter(X);
-			scoreTxt.x += 125;
-
-			scoreTxtChecked = true;
-		}
-
 		if (FlxG.keys.justPressed.ENTER && canPause) {
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -1081,8 +1066,8 @@ class PlayState extends MusicBeatState {
 			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new AnimationDebug()); });
 		}
 
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(125, iconP1.width, 0.50)));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(125, iconP2.width, 0.50)));
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -1664,7 +1649,6 @@ class PlayState extends MusicBeatState {
 					if (pressArray[coolNote.noteData]) {
 						if (mashViolations != 0)
 							mashViolations--;
-						scoreTxt.color = FlxColor.WHITE;
 						goodNoteHit(coolNote);
 					}
 				}
@@ -1676,7 +1660,6 @@ class PlayState extends MusicBeatState {
 
 			if (dontCheck && possibleNotes.length > 0 && FlxG.save.data.ghost && !FlxG.save.data.botplay) {
 				if (mashViolations > 8) {
-					scoreTxt.color = FlxColor.RED;
 					noteMiss(0, null);
 				} else
 					mashViolations++;

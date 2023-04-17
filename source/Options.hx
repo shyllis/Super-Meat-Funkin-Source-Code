@@ -506,28 +506,6 @@ class RatingCounterOption extends Option {
 	}
 }
 
-class TimerOption extends Option {
-	public function new(desc:String) {
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool {
-		FlxG.save.data.timer = !FlxG.save.data.timer;
-		display = updateDisplay();
-		return true;
-	}
-
-	public override function right():Bool {
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String {
-		return "Song Timer < " + (FlxG.save.data.timer ? "Enabled" : "Disabled") + " >";
-	}
-}
-
 class MiddleScrollOption extends Option {
 	public function new(desc:String) {
 		super();
@@ -620,7 +598,6 @@ class ResetSettings extends Option {
 		FlxG.save.data.ratingCounter = null;
 		FlxG.save.data.bgNotesAlpha = null;
 		FlxG.save.data.noteSplashes = null;
-		FlxG.save.data.timer = null;
 		FlxG.save.data.MEMInfo = null;
 		FlxG.save.data.changedHit = null;
 		FlxG.save.data.middleScroll = null;
@@ -632,7 +609,8 @@ class ResetSettings extends Option {
 		FlxG.save.data.downBind = null;
 		FlxG.save.data.rightBind = null;
 		FlxG.save.data.leftBind = null;
-		FlxG.save.data.killBind = null;
+		FlxG.save.data.resetBind = null;
+		FlxG.save.data.hitsoundsVolume = null;
 		(cast(Lib.current.getChildAt(0), Main)).toggleFPS(FlxG.save.data.fps);
 		FlxG.resetState();
 
