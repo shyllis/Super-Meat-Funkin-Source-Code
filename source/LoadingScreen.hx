@@ -7,8 +7,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class LoadingScreen extends FlxTypedGroup<FlxSprite>
-{
+class LoadingScreen extends FlxTypedGroup<FlxSprite> {
     public var progress:Int = 0;
 	public var max:Int = 10;
     
@@ -17,8 +16,7 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite>
 	var loadTxtProgress:FlxSprite;
     var loadTxt:FlxText;
     
-    public function new()
-    {
+    public function new() {
         super();
 
 		var altimg:Bool = FlxG.random.bool(10);
@@ -51,7 +49,7 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite>
 		loadTxtBg.alpha = 0.8;
 		loadTxtBg.y = loadTxt.y;
 
-		loadTxtProgress.makeGraphic(1, 1, 0xFFFFFFFF);
+		loadTxtProgress.makeGraphic(1, 1, 0xFFffa538);
 		loadTxtProgress.updateHitbox();
 		loadTxtProgress.origin.set();
 		loadTxtProgress.scale.set(0, loadTxt.height + 5);
@@ -61,16 +59,14 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite>
 		loadTxt.y += 2;
     }
 
-    override function update(elapsed:Float)
-    {
+    override function update(elapsed:Float) {
         super.update(elapsed);
 
 		var lerpTarget:Float = 1280.0 * (progress / max);
 		loadTxtProgress.scale.x = FlxMath.lerp(loadTxtProgress.scale.x, lerpTarget, elapsed * 5);
     }
 
-    public function setLoadingText(text:String)
-    {
+    public function setLoadingText(text:String) {
         loadTxt.text = text;
     }
 }

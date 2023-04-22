@@ -12,8 +12,7 @@ using StringTools;
 
 //totally not stolen from indie cock (cross)
 
-class LoadingState extends MusicBeatState
-{
+class LoadingState extends MusicBeatState {
 	public static var target:FlxState;
 	public static var stopMusic = false;
 	static var imagesToCache:Array<String> = [];
@@ -21,20 +20,17 @@ class LoadingState extends MusicBeatState
 
 	var screen:LoadingScreen;
 
-	public function new()
-	{
+	public function new() {
 		super();
 	}
 
-	override function create()
-	{
+	override function create() {
 		super.create();
 
 		screen = new LoadingScreen();
 		add(screen);
 
-		for (image in Assets.list(IMAGE))
-		{
+		for (image in Assets.list(IMAGE)) {
 			var library = image.startsWith('assets/shared') ? 'shared' : '';
 
 			if (image.startsWith('assets/shared/images/characters') || image.startsWith('assets/shared/images/bgs'))
@@ -43,8 +39,7 @@ class LoadingState extends MusicBeatState
 				imagesToCache.push(image);
 		}
 
-		for (sound in Assets.list(SOUND))
-		{
+		for (sound in Assets.list(SOUND)) {
 			var library = sound.startsWith('assets/shared') ? 'shared' : '';
 
 			if (sound.startsWith('assets/shared/sounds'))
@@ -58,31 +53,24 @@ class LoadingState extends MusicBeatState
 		FlxG.camera.fade(FlxG.camera.bgColor, 0.5, true);
 
 		FlxGraphic.defaultPersist = true;
-		Thread.create(() ->
-		{
-			screen.setLoadingText("Loading sounds...");
-			for (sound in soundsToCache)
-			{
-				trace("Caching sound " + sound);
-				FlxG.sound.cache(sound);
+		Thread.create(() -> {
+			screen.setLoadingText("Loading images...");
+			for (image in imagesToCache) {
+				FlxG.bitmap.add(image);
 				screen.progress += 1;
 			}
-
-			screen.setLoadingText("Loading images...");
-			for (image in imagesToCache)
-			{
-				trace("Caching image " + image);
-				FlxG.bitmap.add(image);
+			
+			screen.setLoadingText("Loading sounds...");
+			for (sound in soundsToCache) {
+				FlxG.sound.cache(sound);
 				screen.progress += 1;
 			}
 			
 			FlxGraphic.defaultPersist = false;
 			screen.setLoadingText("Done!");
-			trace("Done caching");
 			
 			FlxG.camera.fade(FlxColor.BLACK, 1, false);
-			new FlxTimer().start(1, function(_:FlxTimer)
-			{
+			new FlxTimer().start(1, function(_:FlxTimer) {
 				screen.kill();
 				screen.destroy();
 				loadAndSwitchState(target, false);
@@ -90,8 +78,7 @@ class LoadingState extends MusicBeatState
 		});
 	}	
 	
-	public static function loadAndSwitchState(target:FlxState, stopMusic = false)
-	{
+	public static function loadAndSwitchState(target:FlxState, stopMusic = false) {
 		Paths.setCurrentLevel("week" + PlayState.storyWeek);
 
 		if (stopMusic && FlxG.sound.music != null)
