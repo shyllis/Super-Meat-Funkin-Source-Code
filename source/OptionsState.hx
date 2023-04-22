@@ -35,7 +35,7 @@ class OptionCata extends FlxSprite {
 		optionObjects = new FlxTypedGroup();
 
 		titleObject = new FlxText((middleType ? 1180 / 2 : x), y + (middleType ? 0 : 16), 0, title);
-		titleObject.setFormat(Paths.font("vcr.ttf"), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleObject.setFormat(Paths.font("meat-boy-font.ttf"), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleObject.borderSize = 3;
 
 		if (middleType)
@@ -53,7 +53,7 @@ class OptionCata extends FlxSprite {
 			if (middleType) {
 				text.screenCenter(X);
 			}
-			text.setFormat(Paths.font("vcr.ttf"), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.setFormat(Paths.font("meat-boy-font.ttf"), 35, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.borderSize = 3;
 			text.borderQuality = 1;
 			text.scrollFactor.set();
@@ -193,7 +193,7 @@ class OptionsState extends MusicBeatState {
 		}
 
 		descText = new FlxText(62, 640);
-		descText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("meat-boy-font.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.borderSize = 2;
 
 		add(descBack);

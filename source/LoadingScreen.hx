@@ -37,7 +37,7 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite> {
 		add(loadTxtProgress);
 
 		loadTxt = new FlxText(0, 0, 0, "Loading...", 30);
-		loadTxt.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		loadTxt.setFormat(Paths.font('meat-boy-font.ttf'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		loadTxt.x = 5;
 		loadTxt.y = FlxG.height - loadTxt.height - 5;
 		add(loadTxt);

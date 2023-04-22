@@ -52,7 +52,7 @@ class StoryMenuState extends MusicBeatState {
 		add(scoreText);
 
 		diffText = new FlxText(0, scoreText.y + 36, 0, "HARD", 24);
-		diffText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
+		diffText.setFormat(Paths.font("meat-boy-font.ttf"), 24, FlxColor.WHITE, CENTER);
 		diffText.screenCenter(X);
 		add(diffText);
 
@@ -62,7 +62,7 @@ class StoryMenuState extends MusicBeatState {
 		add(banner);
 
 		storyText = new FlxText(0, FlxG.height * 0.94, 0, "< Meatboy >", 24);
-		storyText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
+		storyText.setFormat(Paths.font("meat-boy-font.ttf"), 24, FlxColor.WHITE, CENTER);
 		storyText.screenCenter(X);
 		add(storyText);
 

@@ -115,4 +115,34 @@
 	<SubTexture name="WHAT0003" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
 	<SubTexture name="WHAT0004" x="4526" y="3165" width="881" height="727"/>
 	<SubTexture name="WHAT0005" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0006" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0007" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0008" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0009" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0010" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0011" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0012" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0013" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0014" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0015" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0016" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0017" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0018" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0019" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0020" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0021" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0022" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0023" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0024" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0025" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0026" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0027" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0028" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0029" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0030" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0031" x="2782" y="3165" width="870" height="727" frameX="-11" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0032" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0033" x="3652" y="3165" width="874" height="727" frameX="-6" frameY="0" frameWidth="881" frameHeight="727"/>
+	<SubTexture name="WHAT0034" x="4526" y="3165" width="881" height="727"/>
+	<SubTexture name="WHAT0035" x="4526" y="3165" width="881" height="727"/>
 </TextureAtlas>
