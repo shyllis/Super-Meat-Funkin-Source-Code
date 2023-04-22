@@ -53,7 +53,7 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite> {
 		loadTxtProgress.updateHitbox();
 		loadTxtProgress.origin.set();
 		loadTxtProgress.scale.set(0, loadTxt.height + 5);
-		loadTxtProgress.alpha = 0.3;
+		loadTxtProgress.alpha = 0.8;
 		loadTxtProgress.y = loadTxt.y;
 
 		loadTxt.y += 2;

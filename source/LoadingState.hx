@@ -53,7 +53,8 @@ class LoadingState extends MusicBeatState {
 		FlxG.camera.fade(FlxG.camera.bgColor, 0.5, true);
 
 		FlxGraphic.defaultPersist = true;
-		Thread.create(() -> {
+		Thread.create(() -> 
+		{
 			screen.setLoadingText("Loading images...");
 			for (image in imagesToCache) {
 				FlxG.bitmap.add(image);
