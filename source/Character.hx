@@ -79,7 +79,7 @@ class Character extends FlxSprite {
 				setGraphicSize(Std.int(width * 0.35));
 				
 				positionX = -70;
-				positionY = 190;
+				positionY = 200;
 		
 				barPic = 'Meaty';
 			case 'meatboyonfire':

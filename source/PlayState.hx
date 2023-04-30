@@ -39,12 +39,10 @@ class PlayState extends MusicBeatState {
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
 	public var gfMap:Map<String, Character> = new Map();
-	public var variables:Map<String, Dynamic> = new Map();
 	#else
 	public var boyfriendMap:Map<String, Boyfriend> = new Map<String, Boyfriend>();
 	public var dadMap:Map<String, Character> = new Map<String, Character>();
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
-	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 	#end
 
 	public static var curStage:String = '';
@@ -134,8 +132,6 @@ class PlayState extends MusicBeatState {
 	var currentFrames:Int = 0;
 
 	var fc:Bool = true;
-
-	public static var firstStart:Bool = true;
 	
 	var talking:Bool = true;
 	var songScore:Int = 0;
@@ -147,7 +143,6 @@ class PlayState extends MusicBeatState {
 	var timeBar:FlxBar;
 	var info:FlxText;
 	var flashyWashy:FlxSprite;
-	var blackscreen:FlxSprite;
 	
 	public static var campaignScore:Int = 0;
 
@@ -246,30 +241,50 @@ class PlayState extends MusicBeatState {
 		songLength = FlxG.sound.music.length;
 
 		switch (curStage) {
+			case 'forest':
+				defaultCamZoom = 0.9;
+				
+				var bg:FlxSprite = new FlxSprite(-650, -200).loadGraphic(Paths.image('bgs/' + curStage + '/backgroundtrees', 'shared'));
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.7, 0.8);
+				add(bg);
+
+				var stuff:FlxSprite = new FlxSprite(-420, -500).loadGraphic(Paths.image('bgs/' + curStage + '/foregroundtrees', 'shared'));
+				stuff.antialiasing = true;
+				stuff.scrollFactor.set(0.9, 0.9);
+				add(stuff);
+
+				var ground:FlxSprite = new FlxSprite(-450, 200).loadGraphic(Paths.image('bgs/' + curStage + '/grassnstuff', 'shared'));
+				ground.antialiasing = true;
+				ground.scrollFactor.set(1, 1);
+				add(ground);
+
+				var bushes:FlxSprite = new FlxSprite(-560, 480).loadGraphic(Paths.image('bgs/' + curStage + '/bushes', 'shared'));
+				bushes.antialiasing = true;
+				bushes.scrollFactor.set(1.1, 0.9);
+				add(bushes);
+
+				hideGf = true;
 			default:
 				defaultCamZoom = 0.9;
 				
-				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback', 'shared'));
+				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('bgs/' + curStage + '/stageback', 'shared'));
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.9, 0.9);
-				bg.active = false;
 				add(bg);
 
-				var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront', 'shared'));
+				var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('bgs/' + curStage + '/stagefront', 'shared'));
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				stageFront.antialiasing = true;
 				stageFront.scrollFactor.set(0.9, 0.9);
-				stageFront.active = false;
 				add(stageFront);
 
-				var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains', 'shared'));
+				var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('bgs/' + curStage + '/stagecurtains', 'shared'));
 				stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 				stageCurtains.updateHitbox();
 				stageCurtains.antialiasing = true;
 				stageCurtains.scrollFactor.set(1.3, 1.3);
-				stageCurtains.active = false;
-
 				add(stageCurtains);
 
 				hideGf = true;
@@ -397,8 +412,7 @@ class PlayState extends MusicBeatState {
 		timeBarBG.scrollFactor.set();
 		add(timeBarBG);
 		
-		var length:Float = songLength / 1000;
-		timeBar = new FlxBar(0, FlxG.height * 0.9 + 5, LEFT_TO_RIGHT, 538, 65, this, 'secondsTotal', 0, length);
+		timeBar = new FlxBar(0, FlxG.height * 0.9 + 5, LEFT_TO_RIGHT, 538, 65, this, 'secondsTotal', 0, 100000);
 		if (FlxG.save.data.downscroll)
 			timeBar.y = 55;
 		timeBar.scrollFactor.set();
@@ -457,11 +471,6 @@ class PlayState extends MusicBeatState {
 		flashyWashy.alpha = 0.000001;
 		add(flashyWashy);
 
-		//smh time bar is broken if i dont do this my code is shit
-		blackscreen = new FlxSprite(0, 0).makeGraphic(1280, 720, FlxColor.BLACK);
-		blackscreen.alpha = 0.000001;
-		add(blackscreen);
-
 		grpNoteSplashes.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -475,16 +484,6 @@ class PlayState extends MusicBeatState {
 		iconP2.cameras = [camHUD];
 		botPlayState.cameras = [camHUD];
 		flashyWashy.cameras = [camHUD];
-		blackscreen.cameras = [camHUD];
-
-		//smh time bar is broken if i dont do this
-		
-		//my code is shit
-		if (firstStart) {
-			health = 0;
-			blackscreen.alpha = 1;
-			firstStart = false;
-		}
 
 		startSong();
 
@@ -584,18 +583,16 @@ class PlayState extends MusicBeatState {
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		if (!firstStart) {
-			if (!paused)
-				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		if (!paused)
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 	
-			FlxG.sound.music.onComplete = endSong;
-			if (SepVocalsNull)
+		FlxG.sound.music.onComplete = endSong;
+		if (SepVocalsNull)
+			vocals.play();
+		else
+			for (vocals in [P1vocals, P2vocals])
 				vocals.play();
-			else
-				for (vocals in [P1vocals, P2vocals])
-					vocals.play();
-		}
-
+			
 		songLength = FlxG.sound.music.length;
 		
 		switch (curSong) {
@@ -630,23 +627,21 @@ class PlayState extends MusicBeatState {
 
 		curSong = songData.song;
 
-		if (!firstStart) {
-			if (SONG.needsVoices)
-				if (SepVocalsNull) {
-					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-				} else {
-					P1vocals = new FlxSound().loadEmbedded(Paths.P1voice(PlayState.SONG.song));
-					P2vocals = new FlxSound().loadEmbedded(Paths.P2voice(PlayState.SONG.song));
-				}
-			else
-				vocals = new FlxSound();
+		if (SONG.needsVoices)
+			if (SepVocalsNull) {
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+			} else {
+				P1vocals = new FlxSound().loadEmbedded(Paths.P1voice(PlayState.SONG.song));
+				P2vocals = new FlxSound().loadEmbedded(Paths.P2voice(PlayState.SONG.song));
+			}
+		else
+			vocals = new FlxSound();
 
-			if (SepVocalsNull)
+		if (SepVocalsNull)
+			FlxG.sound.list.add(vocals);
+		else
+			for (vocals in [P1vocals, P2vocals])
 				FlxG.sound.list.add(vocals);
-			else
-				for (vocals in [P1vocals, P2vocals])
-					FlxG.sound.list.add(vocals);
-		}
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -1034,7 +1029,21 @@ class PlayState extends MusicBeatState {
 
 		info.text = '${SONG.song}' + ' - ' + "Hard";
 		info.screenCenter(X);
+		
+		remove(timeBar);
 
+		var length:Float = songLength / 1000;
+		timeBar = new FlxBar(0, FlxG.height * 0.9 + 5, LEFT_TO_RIGHT, 538, 65, this, 'secondsTotal', 0, length);
+		if (FlxG.save.data.downscroll)
+			timeBar.y = 55;
+		timeBar.scrollFactor.set();
+		timeBar.createImageBar(Paths.image('bar/TIMEBlack'), Paths.image('bar/TIME'));
+		timeBar.numDivisions = 1000;
+		timeBar.screenCenter(X);
+		add(timeBar);
+		
+		timeBar.cameras = [camHUD];
+		
 		secondsTotal = Math.floor(Conductor.songPosition / 1000);
 		if (secondsTotal < 0)
 			secondsTotal = 0;
@@ -1507,7 +1516,7 @@ class PlayState extends MusicBeatState {
 
 		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
 			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-			noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+			noteSplash.setupNoteSplash(daNote.x, strumLine.y, daNote.noteData);
 			grpNoteSplashes.add(noteSplash);
 		}
 
