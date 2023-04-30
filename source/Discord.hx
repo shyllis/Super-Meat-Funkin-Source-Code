@@ -33,7 +33,7 @@ class DiscordClient {
 		DiscordRpc.presence({
 			details: "Title State",
 			state: null,
-			largeImageKey: 'icon',
+			largeImageKey: 'logo',
 			largeImageText: "Super Meat Funkin'"
 		});
 	}
@@ -63,7 +63,7 @@ class DiscordClient {
 		DiscordRpc.presence({
 			details: details,
 			state: state,
-			largeImageKey: 'icon',
+			largeImageKey: 'logo',
 			largeImageText: "Super Meat Funkin'",
 			smallImageKey: smallImageKey,
 			startTimestamp: Std.int(startTimestamp / 1000),

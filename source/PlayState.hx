@@ -169,6 +169,12 @@ class PlayState extends MusicBeatState {
 	var dodgeSaw:FlxSprite;
 
 	public var hideGf:Bool = false;
+
+	//forest bg stuff for event
+	var bg:FlxSprite;
+	var stuff:FlxSprite;
+	var ground:FlxSprite;
+	var bushes:FlxSprite;
 	
 	override public function create() {
 		instance = this;
@@ -244,31 +250,30 @@ class PlayState extends MusicBeatState {
 			case 'forest':
 				defaultCamZoom = 0.9;
 				
-				var bg:FlxSprite = new FlxSprite(-650, -200).loadGraphic(Paths.image('bgs/' + curStage + '/backgroundtrees', 'shared'));
+				bg = new FlxSprite(-650, -200).loadGraphic(Paths.image('bgs/' + curStage + '/backgroundtrees', 'shared'));
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.7, 0.8);
 				add(bg);
 
-				var stuff:FlxSprite = new FlxSprite(-420, -500).loadGraphic(Paths.image('bgs/' + curStage + '/foregroundtrees', 'shared'));
+				stuff = new FlxSprite(-420, -500).loadGraphic(Paths.image('bgs/' + curStage + '/foregroundtrees', 'shared'));
 				stuff.antialiasing = true;
 				stuff.scrollFactor.set(0.9, 0.9);
 				add(stuff);
 
-				var ground:FlxSprite = new FlxSprite(-450, 200).loadGraphic(Paths.image('bgs/' + curStage + '/grassnstuff', 'shared'));
+				ground = new FlxSprite(-450, 200).loadGraphic(Paths.image('bgs/' + curStage + '/grassnstuff', 'shared'));
 				ground.antialiasing = true;
 				ground.scrollFactor.set(1, 1);
 				add(ground);
 
-				var bushes:FlxSprite = new FlxSprite(-560, 480).loadGraphic(Paths.image('bgs/' + curStage + '/bushes', 'shared'));
+				bushes = new FlxSprite(-560, 480).loadGraphic(Paths.image('bgs/' + curStage + '/bushes', 'shared'));
 				bushes.antialiasing = true;
 				bushes.scrollFactor.set(1.1, 0.9);
-				add(bushes);
 
 				hideGf = true;
 			default:
 				defaultCamZoom = 0.9;
 				
-				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('bgs/' + curStage + '/stageback', 'shared'));
+				bg = new FlxSprite(-600, -200).loadGraphic(Paths.image('bgs/' + curStage + '/stageback', 'shared'));
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.9, 0.9);
 				add(bg);
@@ -331,6 +336,9 @@ class PlayState extends MusicBeatState {
 		add(bfOnlyEvent);
 
 		add(boyfriend);
+
+		if (curStage == 'forest')
+			add(bushes);
 
 		Conductor.songPosition = 0;
 
@@ -509,6 +517,8 @@ class PlayState extends MusicBeatState {
 					iconP1.changeIcon(newCharacter);
 					healthBar.createImageBar(Paths.image('bar/HP' + dad.barPic), Paths.image('bar/HP' + boyfriend.barPic));
 					healthBar.updateBar();
+					timeBar.createImageBar(Paths.image('bar/TIMEBlack'), Paths.image('bar/TIME'));
+					timeBar.updateBar();
 				}
 
 			case 1:
@@ -528,6 +538,8 @@ class PlayState extends MusicBeatState {
 					iconP2.changeIcon(newCharacter);
 					healthBar.createImageBar(Paths.image('bar/HP' + dad.barPic), Paths.image('bar/HP' + boyfriend.barPic));
 					healthBar.updateBar();
+					timeBar.createImageBar(Paths.image('bar/TIMEBlack'), Paths.image('bar/TIME'));
+					timeBar.updateBar();
 				}
 
 			case 2:
@@ -1906,6 +1918,10 @@ class PlayState extends MusicBeatState {
 				flashyWashy.alpha = 1;
 				FlxTween.tween(flashyWashy, {alpha: 0}, 1.5, {ease: FlxEase.cubeInOut});
 				camZooming = false;
+				
+				//haha penis
+				for (i in [bg, stuff, ground, bushes])
+					remove(i);
 				defaultCamZoom = 0.9;
 			}
 		}

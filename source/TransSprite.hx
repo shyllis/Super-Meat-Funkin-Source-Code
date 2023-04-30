@@ -20,9 +20,11 @@ class TransSprite extends FlxSubState {
         saw = new FlxSprite().loadGraphic('transition/saw.png');
         saw.setGraphicSize(Std.int(saw.width * 4));
         saw.color = FlxColor.BLACK;
+		saw.antialiasing = true;
 
         cube = new FlxSprite(1200, 600).loadGraphic('transition/cube.png');
         cube.color = FlxColor.BLACK;
+		cube.antialiasing = true;
 
         black = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
         add(black);

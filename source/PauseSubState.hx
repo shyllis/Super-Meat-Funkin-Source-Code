@@ -36,7 +36,7 @@ class PauseSubState extends MusicBeatSubstate {
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
-		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+		levelInfo.setFormat(Paths.font("meat-boy-font.ttf"), 32);
 		levelInfo.borderSize = 1;
 		levelInfo.borderQuality = 2;
 		levelInfo.updateHitbox();
@@ -44,7 +44,7 @@ class PauseSubState extends MusicBeatSubstate {
 
 		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "Hard", 32);
 		levelDifficulty.scrollFactor.set();
-		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+		levelDifficulty.setFormat(Paths.font("meat-boy-font.ttf"), 32);
 		levelDifficulty.borderSize = 1;
 		levelDifficulty.borderQuality = 2;
 		levelDifficulty.updateHitbox();

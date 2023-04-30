@@ -48,7 +48,7 @@ class MainMenuState extends MusicBeatState {
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			FlxG.sound.music.time = 3000;
 		}
-
+		
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('daMeatBG'));
@@ -60,6 +60,7 @@ class MainMenuState extends MusicBeatState {
 		barThing = new FlxSprite().loadGraphic(Paths.image('menu/barThingy'));
 		barThing.updateHitbox();
 		barThing.screenCenter();
+		barThing.antialiasing = true;
 		add(barThing);
 
 		logo = new FlxSprite(347).loadGraphic(Paths.image('logo'));
@@ -88,6 +89,8 @@ class MainMenuState extends MusicBeatState {
 		}
 
 		changeItem();
+
+		FlxG.camera.zoom += 0.015;
 
 		super.create();
 	}
@@ -119,6 +122,8 @@ class MainMenuState extends MusicBeatState {
 				});
 			}
 		}
+		
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 
 		super.update(elapsed);
 	}
@@ -150,6 +155,5 @@ class MainMenuState extends MusicBeatState {
 			arrow.y = 483;
 		else
 			arrow.y = 543;
-
 	}
 }

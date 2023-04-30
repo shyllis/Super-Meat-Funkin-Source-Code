@@ -46,8 +46,8 @@ class StoryMenuState extends MusicBeatState {
 
 		persistentUpdate = persistentDraw = true;
 
-		scoreText = new FlxText(10, 24, 0, "SCORE: 49324858", 32);
-		scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		scoreText = new FlxText(10, 24, 0, "SCORE: 49324858", 28);
+		scoreText.setFormat(Paths.font("meat-boy-font.ttf"), 28, FlxColor.WHITE, CENTER);
 		scoreText.screenCenter(X);
 		add(scoreText);
 
@@ -59,6 +59,7 @@ class StoryMenuState extends MusicBeatState {
 		banner = new FlxSprite().loadGraphic(Paths.image('storymenu/banner'));
 		banner.updateHitbox();
 		banner.screenCenter();
+		banner.antialiasing = true;
 		add(banner);
 
 		storyText = new FlxText(0, FlxG.height * 0.94, 0, "< Meatboy >", 24);
@@ -70,13 +71,15 @@ class StoryMenuState extends MusicBeatState {
 		intendedScore = Highscore.getWeekScore(0, 0);
 		#end
 
+		FlxG.camera.zoom += 0.015;
+		
 		super.create();
 	}
 
 	override function update(elapsed:Float) {
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
 
-		scoreText.text = "WEEK SCORE:" + lerpScore;
+		scoreText.text = "WEEK SCORE: " + lerpScore;
 		
 		scoreText.screenCenter(X);
 		diffText.screenCenter(X);
@@ -91,6 +94,8 @@ class StoryMenuState extends MusicBeatState {
 			transition('IN');
 			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new MainMenuState()); });
 		}
+
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 
 		super.update(elapsed);
 	}

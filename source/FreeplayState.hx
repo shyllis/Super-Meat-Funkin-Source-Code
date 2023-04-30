@@ -44,34 +44,42 @@ class FreeplayState extends MusicBeatState {
 			FlxG.sound.music.time = 3000;
 		}
 
+		persistentUpdate = persistentDraw = true;
+
 		bg = new FlxSprite().loadGraphic(Paths.image('daMeatBG'));
+		bg.antialiasing = true;
 		add(bg);
 		
 		barThing = new FlxSprite().loadGraphic(Paths.image('freeplay/barThingy'));
 		barThing.updateHitbox();
 		barThing.screenCenter();
+		barThing.antialiasing = true;
 		add(barThing);
 
 		songOneBanner = new FlxSprite().loadGraphic(Paths.image('freeplay/song1banner'));
 		songOneBanner.updateHitbox();
 		songOneBanner.screenCenter();
+		songOneBanner.antialiasing = true;
 		add(songOneBanner);
 
 		songTwoBanner = new FlxSprite().loadGraphic(Paths.image('freeplay/song2banner'));
 		songTwoBanner.updateHitbox();
 		songTwoBanner.screenCenter();
+		songTwoBanner.antialiasing = true;
 		add(songTwoBanner);
 
-		scoreText = new FlxText(30, 24, 0, "PERSONAL BEST: 0", 32);
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		scoreText = new FlxText(30, 24, 0, "PERSONAL BEST: 0", 28);
+		scoreText.setFormat(Paths.font("meat-boy-font.ttf"), 28, FlxColor.WHITE, CENTER);
 		scoreText.screenCenter(X);
 		add(scoreText);
 
 		diffText = new FlxText(0, scoreText.y + 36, 0, "HARD", 24);
-		diffText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
+		diffText.setFormat(Paths.font("meat-boy-font.ttf"), 24, FlxColor.WHITE, CENTER);
 		add(diffText);
 
 		changeSelection();
+
+		FlxG.camera.zoom += 0.015;
 
 		super.create();
 	}
@@ -90,7 +98,7 @@ class FreeplayState extends MusicBeatState {
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		scoreText.text = "PERSONAL BEST:" + lerpScore;
+		scoreText.text = "PERSONAL BEST: " + lerpScore;
 
 		if (!stopspamming) {
 			if (controls.LEFT_P || controls.RIGHT_P)
@@ -124,6 +132,8 @@ class FreeplayState extends MusicBeatState {
 					FlxG.switchState(new LoadingState()); });
 			}
 		}
+		
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 	}
 
 	function changeSelection() {
