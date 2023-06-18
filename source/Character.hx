@@ -67,41 +67,54 @@ class Character extends FlxSprite {
 				animation.addByPrefix('singRIGHT', 'Right', 24);
 				animation.addByPrefix('singDOWN', 'Down', 24);
 				animation.addByPrefix('singLEFT', 'Left', 24);
-				
-				addOffset('idle', 249, -80);
-				addOffset('singDOWN', 273, -108);
-				addOffset('singRIGHT', 235, -80);
-				addOffset('singUP', 235, -32);
-				addOffset('singLEFT', 218, -98);
-		
+
+				addOffset('idle', 250, -80);
+
+				addOffset('singDOWN', 281, -115);
+				addOffset('singRIGHT', 244, -84);
+				addOffset('singUP', 233, -21);
+				addOffset('singLEFT', 220, -105);
+					
 				playAnim('idle');
 	
-				setGraphicSize(Std.int(width * 0.35));
+				setGraphicSize(Std.int(width * 0.43));
 				
-				positionX = -70;
-				positionY = 200;
+				positionX = -20;
+				positionY = 170;
 		
 				barPic = 'Meaty';
 			case 'meatboyonfire':
-				frames = Paths.getSparrowAtlas('characters/meatboy', 'shared');
+				frames = Paths.getSparrowAtlas('characters/meatboyFire', 'shared');
 				animation.addByPrefix('idle', 'Idle', 24);
 				animation.addByPrefix('singUP', 'Up', 24);
 				animation.addByPrefix('singRIGHT', 'Right', 24);
 				animation.addByPrefix('singDOWN', 'Down', 24);
 				animation.addByPrefix('singLEFT', 'Left', 24);
-				
-				addOffset('idle', 249, -80);
-				addOffset('singDOWN', 273, -108);
-				addOffset('singRIGHT', 235, -80);
-				addOffset('singUP', 235, -32);
-				addOffset('singLEFT', 218, -98);
-		
+				animation.addByPrefix('singUPmiss', 'MissUp', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'MissLeft', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'MissRight', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'MissDown', 24, false);
+
+				addOffset('idle', -5, 2);
+
+				addOffset('singLEFT', 32, -10);
+				addOffset('singDOWN', 6, -30);
+				addOffset('singUP', -22, 25);
+				addOffset('singRIGHT', -11, -32);
+
+				addOffset('singLEFTmiss', -13, 27);
+				addOffset('singDOWNmiss', 6, 75);
+				addOffset('singUPmiss', -19, 116);
+				addOffset('singRIGHTmiss', -102, 13);
+
 				playAnim('idle');
 	
-				setGraphicSize(Std.int(width * 0.35));
+				setGraphicSize(Std.int(width * 0.45));
 				
-				positionX = 700;
-				positionY = 350;
+				flipX = true;
+
+				positionX = 550;
+				positionY = 300;
 		
 				barPic = 'Meaty';
 			case 'drfetus':
@@ -113,17 +126,17 @@ class Character extends FlxSprite {
 				animation.addByPrefix('singLEFT', 'Left', 24);
 
 				addOffset('idle', 249, -80);
-				addOffset('singRIGHT', 248, -89);
-				addOffset('singDOWN', 257, -96);
-				addOffset('singLEFT', 253, -98);
-				addOffset('singUP', 234, -77);
+				addOffset('singDOWN', 257, -111);
+				addOffset('singRIGHT', 248, -91);
+				addOffset('singUP', 215, -66);
+				addOffset('singLEFT', 254, -105);
 		
 				playAnim('idle');
 		
-				setGraphicSize(Std.int(width * 0.4));
+				setGraphicSize(Std.int(width * 0.5));
 
-				positionX = 70;
-				positionY = 150;
+				positionX = 100;
+				positionY = 100;
 		
 				barPic = 'Fetus';
 			case 'bf':
@@ -139,29 +152,29 @@ class Character extends FlxSprite {
 				animation.addByPrefix('singDOWNmiss', 'MissDown', 24, false);
 				animation.addByPrefix('scared', 'WHAT', 24);
 				animation.addByPrefix('jump', 'jump', 24);
-
-				addOffset('idle', -5, -10);
-				addOffset('singDOWN', -1, -36);
-				addOffset('singUP', -5, 24);
-				addOffset('singLEFT', 23, -28);
-				addOffset('singRIGHT', 24, -22);
-
-				addOffset('singRIGHTmiss', 10, -18);
-				addOffset('singLEFTmiss', 8, -32);
-				addOffset('singDOWNmiss', -15, -33);
-				addOffset('singUPmiss', -9, 48);
 				
-				addOffset('scared', -8, -14);
+				addOffset('idle', -5, 2);
+				addOffset('singLEFT', 32, -24);
+				addOffset('singDOWN', 3, -23);
+				addOffset('singUP', -5, 48);
+				addOffset('singRIGHT', 29, -13);
+
+				addOffset('singLEFTmiss', 8, -20);
+				addOffset('singDOWNmiss', -15, -22);
+				addOffset('singUPmiss', -9, 85);
+				addOffset('singRIGHTmiss', 17, 0);
+
+				addOffset('scared', -8, -9);
 				addOffset('jump', 26, -22);
 
 				playAnim('idle');
 				
-				setGraphicSize(Std.int(width * 0.4));
+				setGraphicSize(Std.int(width * 0.5));
 
 				flipX = true;
 
 				positionX = -150;
-				positionY = -110;
+				positionY = -150;
 
 				barPic = 'BF';
 		}
@@ -174,7 +187,7 @@ class Character extends FlxSprite {
 	}
 
 	override function update(elapsed:Float) {
-		if (!curCharacter.startsWith('bf')) {
+		if (!isPlayer) {
 			if (animation.curAnim.name.startsWith('sing'))
 				holdTimer += elapsed;
 

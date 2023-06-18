@@ -1,1 +1,0 @@
-hxcodec supports MANY formats.

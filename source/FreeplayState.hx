@@ -113,8 +113,7 @@ class FreeplayState extends MusicBeatState {
 	
 			if (controls.ACCEPT) {
 				stopspamming = true;
-	
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+
 				if (balls)
 					FlxFlicker.flicker(songOneBanner, 1, 0.06, false, false);
 				else
@@ -144,7 +143,7 @@ class FreeplayState extends MusicBeatState {
 			songOneBanner.alpha = 1;
 			songTwoBanner.alpha = 0.5;
 		} else {
-			songName = 'Song2';
+			songName = 'Burnin';
 			songOneBanner.alpha = 0.5;
 			songTwoBanner.alpha = 1;
 		}

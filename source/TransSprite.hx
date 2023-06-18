@@ -31,6 +31,7 @@ class TransSprite extends FlxSubState {
 
         switch (type) {
             case 'in':
+                FlxG.sound.play(Paths.sound('transition1'));
                 add(saw);
                 add(cube);
                 saw.y = -1000;
@@ -41,12 +42,14 @@ class TransSprite extends FlxSubState {
                 new FlxTimer().start(0.4, function(tmr:FlxTimer)
                     black.alpha = 1);
             case 'out':
+                FlxG.sound.play(Paths.sound('transition2'));
                 add(saw);
                 saw.screenCenter();
                 FlxTween.tween(black, {alpha: 0}, 0.2);
                 FlxTween.tween(saw, {y: 2000}, 0.4);
                 new FlxTimer().start(0.4, function(tmr:FlxTimer) {close();} );
             case 'gamein':
+                FlxG.sound.play(Paths.sound('transition1'));
                 add(saw);
                 saw.screenCenter(Y);
                 saw.x = -1010;
@@ -55,12 +58,14 @@ class TransSprite extends FlxSubState {
                 new FlxTimer().start(0.4, function(tmr:FlxTimer)
                     black.alpha = 1);
             case 'gameout':
+                FlxG.sound.play(Paths.sound('transition2'));
                 add(saw);
                 saw.screenCenter();
                 FlxTween.tween(black, {alpha: 0}, 0.2);
                 FlxTween.tween(saw, {x: 2000}, 0.4);
                 new FlxTimer().start(0.4, function(tmr:FlxTimer) {close();} );
             case 'indamned':
+                FlxG.sound.play(Paths.sound('transition1'));
                 add(saw);
                 add(cube);
                 cube.y = 700;

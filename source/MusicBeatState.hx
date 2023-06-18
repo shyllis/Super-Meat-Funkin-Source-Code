@@ -3,10 +3,10 @@ package;
 #if windows
 import Discord.DiscordClient;
 #end
+import flixel.FlxG;
 import flixel.util.FlxColor;
 import openfl.Lib;
 import Conductor.BPMChangeEvent;
-import flixel.FlxG;
 import flixel.addons.ui.FlxUIState;
 import flixel.FlxSubState;
 

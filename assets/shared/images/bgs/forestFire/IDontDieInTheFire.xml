@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="IDontDieInTheFire.png">
+	<!-- Created with Adobe Animate version 21.0.9.42677 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="burn0000" x="0" y="0" width="1875" height="487" frameX="-7" frameY="-9" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0001" x="0" y="0" width="1875" height="487" frameX="-7" frameY="-9" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0002" x="1875" y="0" width="1877" height="491" frameX="-7" frameY="-13" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0003" x="1875" y="0" width="1877" height="491" frameX="-7" frameY="-13" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0004" x="0" y="491" width="1880" height="486" frameX="-12" frameY="-10" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0005" x="0" y="491" width="1880" height="486" frameX="-12" frameY="-10" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0006" x="1880" y="491" width="1887" height="497" frameX="-8" frameY="-4" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0007" x="1880" y="491" width="1887" height="497" frameX="-8" frameY="-4" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0008" x="0" y="988" width="1870" height="492" frameX="-13" frameY="-4" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0009" x="0" y="988" width="1870" height="492" frameX="-13" frameY="-4" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0010" x="1870" y="988" width="1885" height="495" frameX="0" frameY="0" frameWidth="1895" frameHeight="504"/>
+	<SubTexture name="burn0011" x="1870" y="988" width="1885" height="495" frameX="0" frameY="0" frameWidth="1895" frameHeight="504"/>
+</TextureAtlas>

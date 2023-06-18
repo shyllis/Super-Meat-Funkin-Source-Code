@@ -21,11 +21,10 @@ class LoadingScreen extends FlxTypedGroup<FlxSprite> {
 
 		var altimg:Bool = FlxG.random.bool(10);
 		var path:String = Paths.image(altimg ? 'TESTYOURMEATalt' : 'TESTYOURMEAT');
-		var shit:Float = altimg ? 1.4 : 0.7;
 
 		loadingImage = new FlxSprite(0, 0);
 		loadingImage.loadGraphic(path);
-		loadingImage.scale.set(shit, shit);
+		loadingImage.scale.set(0.7, 0.7);
 		loadingImage.updateHitbox();
 		loadingImage.screenCenter();
 		add(loadingImage);

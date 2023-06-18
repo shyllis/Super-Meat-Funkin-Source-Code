@@ -18,7 +18,7 @@ import flixel.graphics.FlxGraphic;
 using StringTools;
 
 class StoryMenuState extends MusicBeatState {
-	var weekData:Array<Dynamic> = [['Meaty', 'Song2']];
+	var weekData:Array<Dynamic> = [['Meaty', 'Burnin']];
 	
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -56,7 +56,13 @@ class StoryMenuState extends MusicBeatState {
 		diffText.screenCenter(X);
 		add(diffText);
 
-		banner = new FlxSprite().loadGraphic(Paths.image('storymenu/banner'));
+		var daBanner:String = 'banner';
+
+		if (FlxG.random.int(1, 100) <= 8) {
+			daBanner = 'bannerLOL';
+		}
+
+		banner = new FlxSprite().loadGraphic(Paths.image('storymenu/' + daBanner));
 		banner.updateHitbox();
 		banner.screenCenter();
 		banner.antialiasing = true;
@@ -92,7 +98,9 @@ class StoryMenuState extends MusicBeatState {
 		if (controls.BACK && !movedBack && !selectedWeek) {
 			movedBack = true;
 			transition('IN');
-			new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new MainMenuState()); });
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				FlxG.switchState(new MainMenuState()); 
+			});
 		}
 
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
@@ -102,7 +110,6 @@ class StoryMenuState extends MusicBeatState {
 
 	function selectWeek() {
 		if (stopspamming == false) {
-			FlxG.sound.play(Paths.sound('confirmMenu'));
 			transition('GAMEIN');
 			
 			FlxFlicker.flicker(storyText, 1, 0.06, false, false);
@@ -117,7 +124,7 @@ class StoryMenuState extends MusicBeatState {
 			StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase());
 		PlayState.storyWeek = 0;
 		PlayState.campaignScore = 0;
-		new FlxTimer().start(1, function(tmr:FlxTimer) {				
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
 			LoadingState.target = new PlayState();
 			FlxG.switchState(new LoadingState());});
 	}
