@@ -33,7 +33,7 @@ class LoadingState extends MusicBeatState {
 		for (image in Assets.list(IMAGE)) {
 			var library = image.startsWith('assets/shared') ? 'shared' : '';
 
-			if (image.startsWith('assets/shared/images/characters') || image.startsWith('assets/shared/images/bgs'))
+			if (image.startsWith('assets/shared/images/characters') || image.startsWith('assets/shared/images/bgs') || image.startsWith('assets/shared/images/ranks'))
 				imagesToCache.push(Paths.getPath(StringTools.replace(image, 'assets/shared/', ''), IMAGE, library));
 			else if (image.startsWith('assets/images/icons'))
 				imagesToCache.push(image);

@@ -3,6 +3,7 @@ package;
 import lime.app.Application;
 import flixel.FlxG;
 import openfl.Lib;
+import flixel.util.FlxTimer;
 
 class Option {
 	public function new() {
@@ -238,6 +239,71 @@ class GhostTapOption extends Option {
 	}
 }
 
+class TimeBar extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.timeBar = !FlxG.save.data.timeBar;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Time Bar: < " + (FlxG.save.data.timeBar ? "Enabled" : "Disabled") + " >";
+	}
+}
+
+class ScrollSpeedOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool {
+		return false;
+	}
+
+	private override function updateDisplay():String {
+		return "Scroll Speed: < " + HelperFunctions.truncateFloat(FlxG.save.data.scrollSpeed, 1) + " >";
+	}
+
+	override function right():Bool {
+		FlxG.save.data.scrollSpeed += 0.1;
+
+		if (FlxG.save.data.scrollSpeed < 1)
+			FlxG.save.data.scrollSpeed = 1;
+
+		if (FlxG.save.data.scrollSpeed > 4)
+			FlxG.save.data.scrollSpeed = 4;
+		return true;
+	}
+
+	override function getValue():String {
+		return "Scroll Speed: < " + HelperFunctions.truncateFloat(FlxG.save.data.scrollSpeed, 1) + " >";
+	}
+
+	override function left():Bool {
+		FlxG.save.data.scrollSpeed -= 0.1;
+
+		if (FlxG.save.data.scrollSpeed < 1)
+			FlxG.save.data.scrollSpeed = 1;
+
+		if (FlxG.save.data.scrollSpeed > 4)
+			FlxG.save.data.scrollSpeed = 4;
+
+		return true;
+	}
+}
+
 class FreeplayCutscenesOption extends Option {
 	public function new(desc:String) {
 		super();
@@ -278,7 +344,7 @@ class AccuracyOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Accuracy Display < " + (!FlxG.save.data.accuracyDisplay ? "Disabled" : "Enabled") + " >";
+		return "Accuracy Display: < " + (!FlxG.save.data.accuracyDisplay ? "Disabled" : "Enabled") + " >";
 	}
 }
 
@@ -452,7 +518,6 @@ class CustomizeGameplay extends Option {
 	}
 
 	public override function press():Bool {
-		trace("switch");
 		FlxG.switchState(new GameplayCustomizeState());
 		return false;
 	}
@@ -480,7 +545,7 @@ class NoteSplashes extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "Enabled" : "Disabled") + " >";
+		return "Note Splashes: < " + (FlxG.save.data.noteSplashes ? "Enabled" : "Disabled") + " >";
 	}
 }
 
@@ -502,7 +567,29 @@ class RatingCounterOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Rating Counter < " + (FlxG.save.data.ratingCounter ? "Enabled" : "Disabled") + " >";
+		return "Rating Counter: < " + (FlxG.save.data.ratingCounter ? "Enabled" : "Disabled") + " >";
+	}
+}
+
+class HideHUD extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.hidehud = !FlxG.save.data.hidehud;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Hide HUD: < " + (FlxG.save.data.hidehud ? "Enabled" : "Disabled") + " >";
 	}
 }
 
@@ -592,6 +679,7 @@ class ResetSettings extends Option {
 			display = updateDisplay();
 			return true;
 		}
+		FlxG.save.data.scrollSpeed = 1;
 		FlxG.save.data.downscroll = null;
 		FlxG.save.data.accuracyDisplay = null;
 		FlxG.save.data.cutscenesInFreeplay = null;
@@ -601,6 +689,8 @@ class ResetSettings extends Option {
 		FlxG.save.data.MEMInfo = null;
 		FlxG.save.data.changedHit = null;
 		FlxG.save.data.middleScroll = null;
+		FlxG.save.data.timeBar = null;
+		FlxG.save.data.hidehud = null;
 		FlxG.save.data.fps = null;
 		FlxG.save.data.fpsCap = null;
 		FlxG.save.data.ghost = null;

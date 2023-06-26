@@ -24,8 +24,17 @@ class KadeEngineData {
 		if (FlxG.save.data.noteSplashes == null)
 			FlxG.save.data.noteSplashes = true;
 
+		if (FlxG.save.data.timeBar == null)
+			FlxG.save.data.timeBar = true;
+
+		if (FlxG.save.data.hidehud == null)
+			FlxG.save.data.hidehud = false;
+
+		if (FlxG.save.data.scrollSpeed == null)
+			FlxG.save.data.scrollSpeed = 1;
+		
 		if (FlxG.save.data.ratingCounter == null)
-			FlxG.save.data.ratingCounter = true;
+			FlxG.save.data.ratingCounter = false;
 
 		if (FlxG.save.data.MEMInfo == null)
 			FlxG.save.data.MEMInfo = true;

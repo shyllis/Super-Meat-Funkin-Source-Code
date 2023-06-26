@@ -34,8 +34,11 @@ class MainMenuState extends MusicBeatState {
 	var bg:FlxSprite;
 	var barThing:FlxSprite;
 	var logo:FlxSprite;
+	var saw:FlxSprite;
+	var fart:FlxSprite;
 	var arrow:FlxSprite;
 	var menuItems:FlxTypedGroup<FlxSprite>;
+	var sawExist:Bool = false;
 
 	override function create() {
 		transition('OUT');
@@ -63,10 +66,24 @@ class MainMenuState extends MusicBeatState {
 		barThing.antialiasing = true;
 		add(barThing);
 
-		logo = new FlxSprite(347).loadGraphic(Paths.image('logo'));
-		logo.setGraphicSize(Std.int(logo.width * 0.7));
+		logo = new FlxSprite(710, 35).loadGraphic(Paths.image('logo/logo'));
+		logo.setGraphicSize(Std.int(logo.width * 0.6));
 		logo.antialiasing = true;
 		logo.updateHitbox();
+
+		saw = new FlxSprite(760, 35).loadGraphic(Paths.image('logo/saw'));
+		saw.setGraphicSize(Std.int(saw.width * 0.6));
+		saw.antialiasing = true;
+		saw.updateHitbox();
+
+		fart = new FlxSprite(630, 125).loadGraphic(Paths.image('logo/fart'));
+		fart.setGraphicSize(Std.int(fart.width * 0.6));
+		fart.antialiasing = true;
+		fart.updateHitbox();
+
+		add(fart);
+		add(saw);
+		sawExist = true;
 		add(logo);
 
 		arrow = new FlxSprite(755).loadGraphic(Paths.image('menu/arrow'));
@@ -123,6 +140,11 @@ class MainMenuState extends MusicBeatState {
 		}
 		
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
+
+		if (sawExist) {
+			Sys.sleep(0.01);
+			saw.angle += 4;
+		}
 
 		super.update(elapsed);
 	}

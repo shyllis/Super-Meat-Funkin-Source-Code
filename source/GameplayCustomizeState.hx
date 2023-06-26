@@ -37,7 +37,7 @@ class GameplayCustomizeState extends MusicBeatState {
 	private var camHUD:FlxCamera;
 
 	public override function create() {
-		transition('OUT');
+		transition('fart');
 
 		#if windows
 		DiscordClient.changePresence("Customizing Gameplay", null);
@@ -68,12 +68,14 @@ class GameplayCustomizeState extends MusicBeatState {
 
 		var camFollow = new FlxObject(0, 0, 1, 1);
 
-		bf = new Boyfriend(770, 450, 'bf');
+		dad = new Character(80, 270, 'meatboy');
+		bf = new Boyfriend(620, 300, 'bf');
 
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x + 400, dad.getGraphicMidpoint().y);
 
 		camFollow.setPosition(camPos.x, camPos.y);
 
+		add(dad);
 		add(bf);
 
 		add(sick);
@@ -140,8 +142,8 @@ class GameplayCustomizeState extends MusicBeatState {
 		camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 
 		if (FlxG.mouse.overlaps(sick) && FlxG.mouse.pressed) {
-			sick.x = FlxG.mouse.x - sick.width / 2;
-			sick.y = FlxG.mouse.y - sick.height;
+			sick.x = FlxG.mouse.x - sick.width / 2 - 300;
+			sick.y = FlxG.mouse.y - sick.height - 300;
 		}
 
 		for (i in playerStrums)

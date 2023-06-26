@@ -47,8 +47,11 @@ class TitleState extends MusicBeatState {
 
 	var bg:FlxSprite;
 	var logo:FlxSprite;
+	var saw:FlxSprite;
+	var fart:FlxSprite;
 	var barThing:FlxSprite;
 	var pressStart:FlxSprite;
+	var sawExist:Bool = false;
 
 	function startIntro() {
 		if (!initialized) {
@@ -66,10 +69,24 @@ class TitleState extends MusicBeatState {
 		bg.screenCenter();
 		add(bg);
 
-		logo = new FlxSprite(347, 160).loadGraphic(Paths.image('logo'));
-		logo.setGraphicSize(Std.int(logo.width * 0.7));
+		logo = new FlxSprite(400, 160).loadGraphic(Paths.image('logo/logo'));
+		logo.setGraphicSize(Std.int(logo.width * 0.6));
 		logo.antialiasing = true;
 		logo.updateHitbox();
+
+		saw = new FlxSprite(450, 160).loadGraphic(Paths.image('logo/saw'));
+		saw.setGraphicSize(Std.int(saw.width * 0.6));
+		saw.antialiasing = true;
+		saw.updateHitbox();
+
+		fart = new FlxSprite(320, 250).loadGraphic(Paths.image('logo/fart'));
+		fart.setGraphicSize(Std.int(fart.width * 0.6));
+		fart.antialiasing = true;
+		fart.updateHitbox();
+
+		add(fart);
+		add(saw);
+		sawExist = true;
 		add(logo);
 
 		barThing = new FlxSprite(0, 0).loadGraphic(Paths.image('title/barThingy'));
@@ -143,6 +160,11 @@ class TitleState extends MusicBeatState {
 		}
 
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
+
+		if (sawExist) {
+			Sys.sleep(0.01);
+			saw.angle += 4;
+		}
 
 		super.update(elapsed);
 	}

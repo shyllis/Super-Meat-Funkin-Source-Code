@@ -121,7 +121,7 @@ class OptionsState extends MusicBeatState {
 		barThing.screenCenter();
 		add(barThing);
 
-		logo = new FlxSprite(235).loadGraphic(Paths.image('logo'));
+		logo = new FlxSprite(235).loadGraphic(Paths.image('logo/logo'));
 		logo.updateHitbox();
 		logo.screenCenter();
 		logo.alpha = 0.5;
@@ -130,6 +130,7 @@ class OptionsState extends MusicBeatState {
 
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
+				new ScrollSpeedOption("Change your scroll speed. (1 = Chart dependent)"),
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
 				//new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
@@ -140,7 +141,9 @@ class OptionsState extends MusicBeatState {
 			new OptionCata(345, 40, "Appearance", [
 				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new NoteSplashes("Adds splashes at sick note hit."),
-				new AccuracyOption("Display accuracy information on the info bar."),
+				new TimeBar("Display a time bar."),
+				new HideHUD("Hides HUD elements like health bar, etc."),
+				//new AccuracyOption("Display accuracy information on the info bar."),
 				new NotesBGAlpha("Alpha Of The Lane Transparency."),
 				new HitSoundsVolume("Volume of the hitsounds when you press a note."),
 				new RatingCounterOption("Display note hit ratings information.")
@@ -155,8 +158,11 @@ class OptionsState extends MusicBeatState {
 				new ResetSettings("Reset ALL your settings. This is irreversible!")
 			]),
 			new OptionCata(-1, 125, "Editing Keybinds", [
-				new LeftKeybind("The left note's keybind"), new DownKeybind("The down note's keybind"), new UpKeybind("The up note's keybind"),
-				new RightKeybind("The right note's keybind"), new ResetBind("The keybind used to die instantly"), 
+				new LeftKeybind("The left note's keybind"), 
+				new DownKeybind("The down note's keybind"), 
+				new UpKeybind("The up note's keybind"),
+				new RightKeybind("The right note's keybind"), 
+				new ResetBind("The keybind used to die instantly"), 
 			], true)
 		];
 
@@ -207,7 +213,7 @@ class OptionsState extends MusicBeatState {
 
 		super.create();
 	}
-
+	
 	public function switchCat(cat:OptionCata, checkForOutOfBounds:Bool = true) {
 		try {
 			visibleRange = [114, 644];
@@ -354,7 +360,6 @@ class OptionsState extends MusicBeatState {
 				}
 
 				if (accept) {
-					FlxG.sound.play(Paths.sound('scrollMenu'));
 					selectedOptionIndex = 0;
 					isInCat = false;
 					selectOption(selectedCat.options[0]);
