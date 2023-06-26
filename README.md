@@ -19,7 +19,7 @@ This game was made with love to Newgrounds and its community. Extra love to Tom 
 - [Makit](https://youtube.com/@makit8854) - Artist
 
 ### Mod Devs
-- [Makit](https://youtube.com/@makit8854) - Artist and Director
 - [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer, Animator, Musician, Charter and Co-Director
-- [Goldie_5](https://youtube.com/@goldie-5250) - Transitions
+- [Makit](https://youtube.com/@makit8854) - Artist and Co-Director
 - [Lenya The Cat](https://www.youtube.com/@lenyathecat5112) - Artist
+- [Goldie_5](https://youtube.com/@goldie-5250) - Code Help
