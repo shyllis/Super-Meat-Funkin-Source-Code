@@ -1,4 +1,4 @@
--![SMF logo](assets/preload/images/logo.png)
+-![SMF logo](assets/preload/images/logo/logo.png)
 
 # Super Meat Funkin'
 
@@ -19,7 +19,7 @@ This game was made with love to Newgrounds and its community. Extra love to Tom 
 - [Makit](https://youtube.com/@makit8854) - Artist
 
 ### Mod Devs
-- [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer, Animator, Musician, Charter and Co-Director
+- [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer, Animator, Musician, Charter and Director
 - [Makit](https://youtube.com/@makit8854) - Artist and Co-Director
 - [Lenya The Cat](https://www.youtube.com/@lenyathecat5112) - Artist
 - [Goldie_5](https://youtube.com/@goldie-5250) - Code Help
