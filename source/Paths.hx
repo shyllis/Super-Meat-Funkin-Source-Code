@@ -1,14 +1,10 @@
 package;
 
 import flixel.FlxG;
-import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.media.Sound;
 import openfl.utils.Assets as OpenFlAssets;
-import openfl.display3D.textures.Texture;
-import openfl.display.BitmapData;
-import openfl.system.System;
 
 class Paths {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;

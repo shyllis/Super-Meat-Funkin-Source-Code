@@ -3,6 +3,13 @@
 # Super Meat Funkin'
 
 ## Credits
+### Mod Devs
+- [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer, Animator, Musician, Charter and Director
+- [Makit](https://youtube.com/@makit8854) - Artist and Co-Director
+- [Lenya The Cat](https://www.youtube.com/@lenyathecat5112) - Artist
+- [Goldie_5](https://youtube.com/@goldie-5250) - Code Help
+
+This FNF mod was made with love to Super Meat Boy, FNF, Newgrounds and especially to Meat Team. We really tried to make this mod as good as we can and we love y'all. Super Meat Boy is a cool game tho check it out
 ### Friday Night Funkin'
  - [ninjamuffin99](https://twitter.com/ninja_muffin99) - Programming
  - [PhantomArcade3K](https://twitter.com/phantomarcade3k) and [Evilsk8r](https://twitter.com/evilsk8r) - Art
@@ -17,9 +24,3 @@ This game was made with love to Newgrounds and its community. Extra love to Tom 
 - [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer
 - [Goldie_5](https://youtube.com/@goldie-5250) - Programmer
 - [Makit](https://youtube.com/@makit8854) - Artist
-
-### Mod Devs
-- [Shyllis](https://www.twitter.com/dolpshy) - Main Programmer, Animator, Musician, Charter and Director
-- [Makit](https://youtube.com/@makit8854) - Artist and Co-Director
-- [Lenya The Cat](https://www.youtube.com/@lenyathecat5112) - Artist
-- [Goldie_5](https://youtube.com/@goldie-5250) - Code Help

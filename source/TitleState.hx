@@ -4,21 +4,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.effects.FlxFlicker;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
-import flixel.system.FlxSound;
-import flixel.system.ui.FlxSoundTray;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import openfl.Assets;
-#if cpp
-import sys.thread.Thread;
-#end
 
 using StringTools;
 
@@ -33,10 +23,6 @@ class TitleState extends MusicBeatState {
 
 	override public function create():Void {
 		Init.Initialize();
-		@:privateAccess
-		{
-			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
-		}
 
 		super.create();
 
@@ -129,14 +115,6 @@ class TitleState extends MusicBeatState {
 			FlxG.fullscreen = !FlxG.fullscreen;
 		
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
-
-		#if mobile
-		for (touch in FlxG.touches.list) {
-			if (touch.justPressed) {
-				pressedEnter = true;
-			}
-		}
-		#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 

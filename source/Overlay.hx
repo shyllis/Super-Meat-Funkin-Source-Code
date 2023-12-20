@@ -1,8 +1,5 @@
 package;
 
-#if android
-import android.os.Build.VERSION;
-#end
 import flixel.FlxG;
 import openfl.Lib;
 import openfl.events.Event;

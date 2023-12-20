@@ -3,21 +3,18 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.net.curl.CURLCode;
 #if windows
 import Discord.DiscordClient;
 #end
-import flixel.graphics.FlxGraphic;
 
 using StringTools;
 
 class StoryMenuState extends MusicBeatState {
+	var daWeek:Int = 0;
 	var weekData:Array<Dynamic> = [['Meaty', 'Burnin']];
 	
 	var scoreText:FlxText;
@@ -58,9 +55,8 @@ class StoryMenuState extends MusicBeatState {
 
 		var daBanner:String = 'banner';
 
-		if (FlxG.random.int(1, 100) <= 8) {
+		if (FlxG.random.int(1, 100) <= 8)
 			daBanner = 'bannerLOL';
-		}
 
 		banner = new FlxSprite().loadGraphic(Paths.image('storymenu/' + daBanner));
 		banner.updateHitbox();
@@ -74,7 +70,7 @@ class StoryMenuState extends MusicBeatState {
 		add(storyText);
 
 		#if !switch
-		intendedScore = Highscore.getWeekScore(0, 0);
+		intendedScore = Highscore.getWeekScore(daWeek);
 		#end
 
 		FlxG.camera.zoom += 0.015;
@@ -119,13 +115,13 @@ class StoryMenuState extends MusicBeatState {
 		selectedWeek = true;
 		PlayState.storyPlaylist = weekData[0];
 		PlayState.isStoryMode = true;
-		PlayState.storyDifficulty = 0;
 		PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase(),
 			StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase());
 		PlayState.storyWeek = 0;
 		PlayState.campaignScore = 0;
 		new FlxTimer().start(1, function(tmr:FlxTimer) {
 			LoadingState.target = new PlayState();
-			FlxG.switchState(new LoadingState());});
+			FlxG.switchState(new LoadingState());
+		});
 	}
 }

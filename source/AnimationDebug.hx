@@ -3,27 +3,17 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.util.FlxTimer;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import openfl.events.Event;
-import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
 import openfl.desktop.Clipboard;
 import openfl.desktop.ClipboardFormats;
-import flixel.addons.ui.FlxInputText;
-import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
-import flixel.addons.ui.FlxUIState;
-import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIDropDownMenu;
-import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
 
 using StringTools;
 
@@ -248,25 +238,6 @@ class AnimationDebug extends MusicBeatState {
 		helpText.color = FlxColor.WHITE;
 
 		add(helpText);
-	}
-
-	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>) {
-		if (id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper)) {
-			var offset:FlxUINumericStepper = cast sender;
-			var offsetName = offset.name;
-			switch (offsetName) {
-				case 'offset_x':
-					char.animOffsets.get(animList[curAnim])[0] = offset.value;
-					updateTexts();
-					genBoyOffsets(false);
-					char.playAnim(animList[curAnim]);
-				case 'offset_y':
-					char.animOffsets.get(animList[curAnim])[1] = offset.value;
-					updateTexts();
-					genBoyOffsets(false);
-					char.playAnim(animList[curAnim]);
-			}
-		}
 	}
 
 	override function update(elapsed:Float) {

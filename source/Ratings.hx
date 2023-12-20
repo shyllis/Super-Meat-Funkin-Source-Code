@@ -42,21 +42,21 @@ class Ratings {
 		if (FlxG.save.data.botplay)
 			return "good";
 
-		if (noteDiff > 166 * customTimeScale)
-			return "miss";
 		if (noteDiff > 135 * customTimeScale)
+			return "miss";
+		else if (noteDiff > 100 * customTimeScale)
 			return "shit";
-		else if (noteDiff > 90 * customTimeScale)
+		else if (noteDiff > 75 * customTimeScale)
 			return "bad";
-		else if (noteDiff > 45 * customTimeScale)
+		else if (noteDiff > 30 * customTimeScale)
 			return "good";
-		else if (noteDiff < -45 * customTimeScale)
+		else if (noteDiff < -30 * customTimeScale)
 			return "good";
-		else if (noteDiff < -90 * customTimeScale)
+		else if (noteDiff < -75 * customTimeScale)
 			return "bad";
+		else if (noteDiff < -100 * customTimeScale)
+			return "shit";
 		else if (noteDiff < -135 * customTimeScale)
-			return "shit";
-		else if (noteDiff < -166 * customTimeScale)
 			return "miss";
 		return "sick";
 	}

@@ -3,9 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
-import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -124,7 +122,6 @@ class FreeplayState extends MusicBeatState {
 				transition('GAMEIN');
 				PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
 				PlayState.isStoryMode = false;
-				PlayState.storyDifficulty = 0;
 				PlayState.storyWeek = 0;
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
 					LoadingState.target = new PlayState();
@@ -148,10 +145,8 @@ class FreeplayState extends MusicBeatState {
 			songTwoBanner.alpha = 1;
 		}
 
-		var songHighscore = StringTools.replace(songName, " ", "-");
-
 		#if !switch
-		intendedScore = Highscore.getScore(songHighscore, 0);
+		intendedScore = Highscore.getScore(StringTools.replace(songName, " ", "-"));
 		#end
 	}
 }

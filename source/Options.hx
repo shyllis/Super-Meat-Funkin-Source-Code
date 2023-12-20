@@ -3,7 +3,6 @@ package;
 import lime.app.Application;
 import flixel.FlxG;
 import openfl.Lib;
-import flixel.util.FlxTimer;
 
 class Option {
 	public function new() {

@@ -22,7 +22,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
-import flixel.system.FlxAssets;
 import lime.utils.Assets;
 #if windows
 import Discord.DiscordClient;
@@ -48,7 +47,6 @@ class PlayState extends MusicBeatState {
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
 	public static var weekSong:Int = 0;
 	public static var shits:Int = 0;
 	public static var bads:Int = 0;
@@ -60,7 +58,6 @@ class PlayState extends MusicBeatState {
 	var songLength:Float = 0;
 
 	#if windows
-	var storyDifficultyText:String = "";
 	var iconRPC:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
@@ -211,8 +208,6 @@ class PlayState extends MusicBeatState {
 		misses = 0;
 
 		#if windows
-		storyDifficultyText = "Hard";
-
 		iconRPC = SONG.player2;
 
 		if (isStoryMode)
@@ -234,9 +229,9 @@ class PlayState extends MusicBeatState {
 
 		curStage = SONG.stage;
 		
-		if(SONG.stage == null || SONG.stage.length < 1) {
+		if(SONG.stage == null || SONG.stage.length < 1)
 			curStage = 'stage';
-		}
+			
 		SONG.stage = curStage;
 
 		camGame = new FlxCamera();
@@ -1137,18 +1132,6 @@ class PlayState extends MusicBeatState {
 
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.C)
-		{
-			@:privateAccess
-			for (key in FlxG.bitmap._cache.keys())
-			{
-				if (key.contains('assets'))
-				{
-					trace('key: ' + key + " is on mem");
-				}
-			}
-		}
-
 		if (FlxG.keys.justPressed.ENTER && canPause) {
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -1491,7 +1474,7 @@ class PlayState extends MusicBeatState {
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
 			
 			#if !switch
-			Highscore.saveScore(songHighscore, Math.round(songScore), storyDifficulty);
+			Highscore.saveScore(songHighscore, Math.round(songScore));
 			#end
 		}
 
@@ -1505,7 +1488,7 @@ class PlayState extends MusicBeatState {
 				new FlxTimer().start(1, function(tmr:FlxTimer) {FlxG.switchState(new StoryMenuState()); });
 
 				if (SONG.validScore) {
-					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
+					Highscore.saveWeekScore(storyWeek, campaignScore);
 				}
 				FlxG.save.flush();
 				

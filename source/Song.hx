@@ -2,7 +2,6 @@ package;
 
 import Section.SwagSection;
 import haxe.Json;
-import haxe.format.JsonParser;
 import lime.utils.Assets;
 
 using StringTools;
@@ -42,10 +41,7 @@ class Song {
 	}
 
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong {
-		trace(jsonInput);
 		var folderLowercase = StringTools.replace(folder, " ", "-").toLowerCase();
-
-		trace('loading ' + folderLowercase + '/' + jsonInput.toLowerCase());
 
 		var rawJson = Assets.getText(Paths.json(folderLowercase + '/' + jsonInput.toLowerCase())).trim();
 

@@ -2,10 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flash.display.Graphics;
 import flixel.FlxSubState;
-import flixel.system.FlxSound;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -88,9 +85,5 @@ class TransSprite extends FlxSubState {
 		super.update(elapsed);
        
         saw.angle += 5;
-	}
-
-	override function destroy() {
-		super.destroy();
 	}
 }
